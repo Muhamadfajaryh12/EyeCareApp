@@ -10,10 +10,16 @@ import com.example.eyecareapp.ui.components.content.TestContent
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
-fun TestScreen () {
+fun TestScreen (
+    navigateToColourBlindTest : () -> Unit,
+    navigateToHypomiaTest : () -> Unit
+) {
     Box(
         modifier = Modifier.padding(10.dp)){
-        TestContent()
+        TestContent(
+            navigateToColourBlindTest,
+            navigateToHypomiaTest
+        )
     }
 }
 
@@ -21,6 +27,9 @@ fun TestScreen () {
 @Composable
 fun prevTestScreen () {
     EyeCareAppTheme {
-        TestScreen()
+        TestScreen(
+            navigateToHypomiaTest = {},
+            navigateToColourBlindTest = {}
+        )
     }
 }

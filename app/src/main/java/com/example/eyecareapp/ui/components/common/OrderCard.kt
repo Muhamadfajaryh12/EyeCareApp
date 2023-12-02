@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -16,9 +17,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun OrderCard() {
@@ -26,6 +29,8 @@ fun OrderCard() {
         modifier = Modifier
             .border(width = 1.dp, color = Color.Black)
             .width(300.dp)
+            .height(60.dp)
+            .clip(shape = RoundedCornerShape(10.dp))
     ){
         Row {
             AsyncImage(
@@ -33,17 +38,17 @@ fun OrderCard() {
                 contentDescription = null,
                 modifier = Modifier
                     .width(60.dp)
-                    .height(40.dp)
+                    .height(60.dp)
             )
             Column(
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.height(40.dp)
+                modifier = Modifier.height(60.dp)
             ) {
                 Text(
                     text = "Glasses",
                     style = TextStyle(
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 10.sp
+                        fontSize = 12.sp
                     )
                 )
                 Row {
@@ -51,24 +56,35 @@ fun OrderCard() {
                         text = "Status : ",
                         style = TextStyle(
                             fontWeight = FontWeight.SemiBold,
-                            fontSize = 10.sp
-                        )
+                            fontSize = 12.sp
+                        ),
+                        modifier = Modifier.padding(2.dp)
                     )
                     Box(modifier = Modifier
-                                .background(Color(0xFF9900))
-                        .clip(shape = RoundedCornerShape(3.dp))
+                        .background(Color(0xFFFF9900))
+                        .clip(shape = RoundedCornerShape(5.dp))
                     ){
                         Text(
                             text = "Dalam pengiriman",
                             style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
-                                fontSize = 10.sp,
+                                fontSize = 12.sp,
                                 color = Color.White,
-                            )
+                            ),
+                            modifier = Modifier
+                                .padding(2.dp)
                         )
                     }
                 }
             }
         }
+    }
+}
+
+@Preview (showBackground = true)
+@Composable
+fun prevOrderCard () {
+    EyeCareAppTheme {
+        OrderCard()
     }
 }

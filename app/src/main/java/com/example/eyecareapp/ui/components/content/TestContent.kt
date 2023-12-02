@@ -20,7 +20,10 @@ import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
-fun TestContent () {
+fun TestContent (
+    navigateToColourBlindTest : () -> Unit,
+    navigateToHypomiaTest : () -> Unit
+) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -42,7 +45,7 @@ fun TestContent () {
         )
         Spacer(modifier = Modifier.padding(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToColourBlindTest()},
             modifier = Modifier
                 .width(300.dp)
                 .height(50.dp),
@@ -58,7 +61,7 @@ fun TestContent () {
         }
         Spacer(modifier = Modifier.padding(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToHypomiaTest() },
             modifier = Modifier
                 .width(300.dp)
                 .height(50.dp),
@@ -79,6 +82,9 @@ fun TestContent () {
 @Composable
 fun prevTestContent(){
     EyeCareAppTheme {
-        TestContent()
+        TestContent(
+            navigateToColourBlindTest = {},
+            navigateToHypomiaTest = {}
+        )
     }
 }

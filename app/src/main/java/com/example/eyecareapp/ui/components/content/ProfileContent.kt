@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -59,7 +60,7 @@ fun ProfileContent (
             Spacer(modifier = Modifier.padding(20.dp))
             Box(modifier = Modifier
                 .width(300.dp)
-                .border(width = 1.dp, color = Color.Black)
+                .border(width = 1.dp, color = Color.Black),
             ){
                 Text(
                     text = "Lorem Ipsum",
@@ -67,7 +68,7 @@ fun ProfileContent (
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold
                     ),
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(10.dp)
                 )
             }
             Spacer(modifier = Modifier.padding(10.dp))
@@ -81,12 +82,13 @@ fun ProfileContent (
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold
                     ),
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(10.dp)
                 )
             }
             Spacer(modifier = Modifier.padding(100.dp))
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween
+               modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Button(
                     onClick = { /*TODO*/ },

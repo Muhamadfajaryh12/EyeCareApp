@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun WishlistCard () {
@@ -23,6 +25,7 @@ fun WishlistCard () {
         modifier = Modifier
             .border(width = 1.dp, color = Color.Black)
             .width(300.dp)
+            .height(60.dp)
     ){
         Row {
             AsyncImage(
@@ -30,27 +33,35 @@ fun WishlistCard () {
                 contentDescription = null,
                 modifier = Modifier
                     .width(60.dp)
-                    .height(40.dp)
+                    .height(60.dp)
             )
             Column (
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.height(40.dp)
+                modifier = Modifier.height(60.dp)
             ) {
                 Text(
                     text = "Glasses",
                     style = TextStyle(
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 10.sp
+                        fontSize = 12.sp
                     )
                 )
                     Text(
                         text = "Harga : Rp.1.000.000",
                         style = TextStyle(
                             fontWeight = FontWeight.SemiBold,
-                            fontSize = 10.sp
+                            fontSize = 12.sp
                         )
                     )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun prevWishlistCard(){
+    EyeCareAppTheme {
+        WishlistCard()
     }
 }

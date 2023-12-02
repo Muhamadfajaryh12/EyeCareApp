@@ -1,18 +1,24 @@
 package com.example.eyecareapp.ui.components.content
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,24 +33,9 @@ import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
-class HypermopiaOrHymopiatestActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            EyeCareAppTheme {
-                Surface(
-                    color = MaterialTheme.colorScheme.background,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    HypermopiaOrHymopiatestScreen()
-                }
-            }
-        }
-    }
-}
 
 @Composable
-fun HypermopiaOrHymopiatestScreen() {
+fun HypermopiaOrHymopiatestContent() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -80,7 +71,7 @@ fun HypermopiaOrHymopiatestScreen() {
             Spacer(modifier = Modifier.height(16.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.hypermopiaorhymopiatest), // Ganti dengan gambar yang sesuai
+                painter = painterResource(id = R.drawable.hypermopiaorhypomiatest), // Ganti dengan gambar yang sesuai
                 contentDescription = "Hypermopia / Hymopiatest Image",
                 modifier = Modifier
                     .height(200.dp)
@@ -133,9 +124,9 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
                     .clip(MaterialTheme.shapes.medium)
                     .background(Color.White)
                     .padding(8.dp)
-            ) {
+            ) {// bisa diubah pakai lazygrid
                 Image(
-                    painter = painterResource(id = R.drawable.hypermopiaorhymopiatest), // Ganti dengan gambar yang sesuai
+                    painter = painterResource(id = R.drawable.hypermopiaorhypomiatest), // Ganti dengan gambar yang sesuai
                     contentDescription = "Option 1",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -151,7 +142,7 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
                     .padding(8.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.hypermopiaorhymopiatest), // Ganti dengan gambar yang sesuai
+                    painter = painterResource(id = R.drawable.hypermopiaorhypomiatest), // Ganti dengan gambar yang sesuai
                     contentDescription = "Option 2",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -174,7 +165,7 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
                     .padding(8.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.hypermopiaorhymopiatest), // Ganti dengan gambar yang sesuai
+                    painter = painterResource(id = R.drawable.hypermopiaorhypomiatest), // Ganti dengan gambar yang sesuai
                     contentDescription = "Option 3",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -190,7 +181,7 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
                     .padding(8.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.hypermopiaorhymopiatest), // Ganti dengan gambar yang sesuai
+                    painter = painterResource(id = R.drawable.hypermopiaorhypomiatest), // Ganti dengan gambar yang sesuai
                     contentDescription = "Option 4",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -204,6 +195,6 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
 @Composable
 fun PreviewHypermopiaorHymopiatestScreen() {
     EyeCareAppTheme {
-        HypermopiaorHymopiatestScreen()
+        HypermopiaOrHymopiatestContent()
     }
 }

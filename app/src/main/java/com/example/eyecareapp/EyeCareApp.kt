@@ -13,11 +13,14 @@ import com.example.eyecareapp.ui.components.navigation.Screen
 import com.example.eyecareapp.ui.components.navigation.bottomBar.BottomBar
 import com.example.eyecareapp.ui.screen.Cart.CartScreen
 import com.example.eyecareapp.ui.screen.Detail.DetailScreen
+import com.example.eyecareapp.ui.screen.Detail.Payment.PaymentScreen
 import com.example.eyecareapp.ui.screen.Home.HomeScreen
 import com.example.eyecareapp.ui.screen.Login.LoginScreen
 import com.example.eyecareapp.ui.screen.Profile.ChangeProfileScreen
 import com.example.eyecareapp.ui.screen.Profile.ProfileScreen
 import com.example.eyecareapp.ui.screen.Register.RegisterScreen
+import com.example.eyecareapp.ui.screen.Test.ColourBlind.ColourBlindScreen
+import com.example.eyecareapp.ui.screen.Test.Hypomia.HypomiaScreen
 import com.example.eyecareapp.ui.screen.Test.TestScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,10 +59,27 @@ fun EyeCareApp (
                 )
             }
             composable(Screen.test.route){
-                TestScreen()
+                TestScreen(
+                        navigateToHypomiaTest = {
+                            navController.navigate(Screen.hypomia.route)
+                        },
+                        navigateToColourBlindTest = {
+                            navController.navigate(Screen.blindcolour.route)
+                        }
+                )
+            }
+            composable(Screen.hypomia.route){
+                HypomiaScreen()
+            }
+            composable(Screen.blindcolour.route){
+                ColourBlindScreen()
             }
             composable(Screen.detail.route){
-                DetailScreen()
+                DetailScreen(
+                    navigateToPayment = {
+                        navController.navigate(Screen.payment.route)
+                    }
+                )
             }
             composable(Screen.profile.route){
                 ProfileScreen(
@@ -70,6 +90,9 @@ fun EyeCareApp (
             }
             composable(Screen.cart.route){
                 CartScreen()
+            }
+            composable(Screen.payment.route){
+                PaymentScreen()
             }
             composable(Screen.changeprofile.route){
                 ChangeProfileScreen(
