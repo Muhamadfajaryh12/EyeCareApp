@@ -14,8 +14,10 @@ import com.example.eyecareapp.ui.components.navigation.bottomBar.BottomBar
 import com.example.eyecareapp.ui.screen.Cart.CartScreen
 import com.example.eyecareapp.ui.screen.Detail.DetailScreen
 import com.example.eyecareapp.ui.screen.Home.HomeScreen
+import com.example.eyecareapp.ui.screen.Login.LoginScreen
 import com.example.eyecareapp.ui.screen.Profile.ChangeProfileScreen
 import com.example.eyecareapp.ui.screen.Profile.ProfileScreen
+import com.example.eyecareapp.ui.screen.Register.RegisterScreen
 import com.example.eyecareapp.ui.screen.Test.TestScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,12 +28,26 @@ fun EyeCareApp (
 ){
     Scaffold (
         bottomBar ={
-            BottomBar(navController = navController)
+                BottomBar(navController = navController)
         },
         modifier = modifier
     ){
         innerPadding ->
-        NavHost(navController = navController, startDestination = Screen.home.route, modifier = Modifier.padding(innerPadding) ){
+        NavHost(navController = navController, startDestination = Screen.login.route, modifier = Modifier.padding(innerPadding) ){
+            composable(Screen.login.route){
+                LoginScreen(
+                    navigateToRegister = {
+                        navController.navigate(Screen.register.route)
+                    }
+                )
+            }
+            composable(Screen.register.route){
+                RegisterScreen(
+                    navigateToLogin = {
+                        navController.navigate(Screen.login.route)
+                    }
+                )
+            }
             composable(Screen.home.route){
                 HomeScreen(
                     navigateToDetail = {
