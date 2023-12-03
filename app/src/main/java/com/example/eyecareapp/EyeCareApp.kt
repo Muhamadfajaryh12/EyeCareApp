@@ -21,6 +21,7 @@ import com.example.eyecareapp.ui.screen.Profile.ProfileScreen
 import com.example.eyecareapp.ui.screen.Register.RegisterScreen
 import com.example.eyecareapp.ui.screen.Test.ColourBlind.ColourBlindScreen
 import com.example.eyecareapp.ui.screen.Test.Hypomia.HypomiaScreen
+import com.example.eyecareapp.ui.screen.Test.Result.ResultScreen
 import com.example.eyecareapp.ui.screen.Test.TestScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,10 +70,25 @@ fun EyeCareApp (
                 )
             }
             composable(Screen.hypomia.route){
-                HypomiaScreen()
+                HypomiaScreen(
+                    navigateToResult = {
+                        navController.navigate(Screen.result.route)
+                    }
+                )
             }
             composable(Screen.blindcolour.route){
-                ColourBlindScreen()
+                ColourBlindScreen(
+                    navigateToResult = {
+                        navController.navigate(Screen.result.route)
+                    }
+                )
+            }
+            composable(Screen.result.route){
+                ResultScreen(
+                    navigateToDetail = {
+                        navController.navigate(Screen.detail.route)
+                    }
+                )
             }
             composable(Screen.detail.route){
                 DetailScreen(

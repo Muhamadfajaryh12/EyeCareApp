@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,7 +37,9 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 
 @Composable
-fun HypermopiaOrHymopiatestContent() {
+fun HypermopiaOrHymopiatestContent(
+    navigateToResult : () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -90,12 +94,24 @@ fun HypermopiaOrHymopiatestContent() {
                         shape = RoundedCornerShape(5.dp)
                     )
             ) {
-                AnswerOptionItem(
-                    option1 = "Option 1",
-                    option2 = "Option 2",
-                    option3 = "Option 3",
-                    option4 = "Option 4"
-                )
+                Column (
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ){
+                    AnswerOptionItem(
+                        option1 = "Option 1",
+                        option2 = "Option 2",
+                        option3 = "Option 3",
+                        option4 = "Option 4"
+                    )
+                    Button(onClick = { navigateToResult()},
+                        modifier=Modifier
+                            .width(300.dp)
+                            .clip(shape= RoundedCornerShape(5.dp))
+                    ) {
+                        Text(text = "Selesai")
+                    }
+                }
             }
         }
     }
@@ -108,6 +124,7 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
             .fillMaxWidth()
             .padding(16.dp)
     ) {
+
         Row(
             modifier = Modifier
                 .background(
@@ -195,6 +212,8 @@ fun AnswerOptionItem(option1: String, option2: String, option3: String, option4:
 @Composable
 fun PreviewHypermopiaorHymopiatestScreen() {
     EyeCareAppTheme {
-        HypermopiaOrHymopiatestContent()
+        HypermopiaOrHymopiatestContent(
+             navigateToResult = {}
+        )
     }
 }

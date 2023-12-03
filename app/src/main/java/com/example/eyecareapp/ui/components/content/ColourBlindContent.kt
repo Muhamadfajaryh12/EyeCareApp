@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +34,9 @@ import com.example.eyecareapp.R
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
-fun ColourBlindContent() {
+fun ColourBlindContent(
+    navigateToResult : ()->Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,20 +81,29 @@ fun ColourBlindContent() {
             )
 
             Spacer(modifier = Modifier.padding(10.dp))
-
-            LazyColumn(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .fillMaxSize()
                     .background(
                         color = Color(0xFF4682A9), // Warna biru dongker
-                        shape = RoundedCornerShape(5.dp) // Rounded corners
-                    ),
+                shape = RoundedCornerShape(5.dp) // Rounded corners
+            )
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                items(answerOptions) { option ->
-                    AnswerOptionItem(option = option)
+            ){
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(answerOptions) { option ->
+                        AnswerOptionItem(option = option)
+                    }
+                }
+                Spacer(modifier = Modifier.padding(10.dp))
+                Button(onClick = { navigateToResult()},
+                    modifier=Modifier
+                        .width(300.dp)
+                        .clip(shape= RoundedCornerShape(5.dp))
+                ) {
+                    Text(text = "Selesai")
                 }
             }
         }
@@ -132,6 +143,6 @@ val answerOptions = listOf("Option 1", "Option 2", "Option 3")
 @Composable
 fun PreviewColourBlindTestScreen() {
     EyeCareAppTheme {
-        ColourBlindContent()
+        ColourBlindContent(navigateToResult = {})
     }
 }

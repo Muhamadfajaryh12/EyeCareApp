@@ -4,6 +4,10 @@ import ColourBlindContent
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ColourBlindScreen () {
-    ColourBlindContent()
+fun ColourBlindScreen (
+    navigateToResult: () -> Unit
+) {
+    ColourBlindContent(
+        navigateToResult
+    )
 }

@@ -5,12 +5,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.eyecareapp.ui.components.content.HypermopiaOrHymopiatestContent
 
 @Composable
-fun HypomiaScreen() {
-    HypermopiaOrHymopiatestContent()
+fun HypomiaScreen(
+     navigateToResult : () -> Unit
+) {
+    HypermopiaOrHymopiatestContent(
+        navigateToResult
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun prevHypomiaScreen(){
-    HypomiaScreen()
+    HypomiaScreen(
+        navigateToResult = {}
+    )
 }

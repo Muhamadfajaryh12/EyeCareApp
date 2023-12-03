@@ -7,8 +7,8 @@ sealed class Screen(val route:String){
     object test:Screen("Test")
     object blindcolour:Screen("Test/BlindColour")
     object hypomia:Screen("Test/Hypomia")
+    object result:Screen("Result")
     object cart:Screen("Cart")
-
     object payment:Screen("Cart/Payment")
     object profile:Screen("Profile")
     object detail:Screen("Home/Detail")
