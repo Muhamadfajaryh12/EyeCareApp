@@ -24,11 +24,10 @@ app.use(express.json())
 app.use(fileUpload());
 app.use(express.static("public"));
 
-// Load Routes
+// Routes
 app.use("/api/user", userRoutes)
 app.use("/api/kacamata", kacamataRoutes)
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
-
