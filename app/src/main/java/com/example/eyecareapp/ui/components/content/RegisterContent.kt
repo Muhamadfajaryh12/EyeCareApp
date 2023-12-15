@@ -44,7 +44,6 @@ fun RegisterContent (
         modifier = Modifier
             .fillMaxSize()
     ){
-
         Box(modifier = Modifier
             .fillMaxWidth()
             .height(135.dp)
@@ -95,14 +94,6 @@ fun RegisterContent (
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0XFF4682A9)
-            )
-        )
-        Text(
-            text = stringResource(id = R.string.register),
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
             )
         )
         Spacer(modifier = Modifier.padding(10.dp))

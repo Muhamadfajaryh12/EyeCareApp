@@ -12,7 +12,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -26,7 +26,10 @@ fun BottomBar (
     navController: NavController,
     modifier: Modifier = Modifier
 ){
-    NavigationBar (modifier = Modifier) {
+    NavigationBar (
+        modifier = modifier,
+        containerColor = Color.White
+        ) {
         val navigationItem = listOf(
             NavigationItem(
                 title = stringResource(R.string.nav_home),
@@ -49,11 +52,11 @@ fun BottomBar (
                 screen = Screen.profile
             )
         )
-        navigationItem.map { item ->
+        navigationItem.map {
             NavigationBarItem(
-                selected = false,
+                selected =false,
                 onClick = {
-                    navController.navigate(item.screen.route){
+                    navController.navigate(it.screen.route){
                         popUpTo(navController.graph.findStartDestination().id){
                             saveState = true
                         }
@@ -63,12 +66,24 @@ fun BottomBar (
                 },
                 icon = {
                     Icon(
-                        imageVector = item.icon,
-                        contentDescription = item.title
+                        imageVector = it.icon,
+                        contentDescription = it.title,
+                        tint = if (navController.currentDestination?.route == it.screen.route) {
+                            Color(0XFF4682A9)
+                        } else {
+                            Color.Black
+                        }
                     )
                 },
                 label ={
-                    Text(text = (item.title))
+                    Text(
+                        text = (it.title),
+                        color =  if (navController.currentDestination?.route == it.screen.route) {
+                            Color(0XFF4682A9)
+                        } else {
+                            Color.Black
+                        }
+                    )
                 }
             )
         }

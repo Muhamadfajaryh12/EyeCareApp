@@ -110,7 +110,6 @@ fun LoginContent (
             label = stringResource(id = R.string.password)
         )
         Spacer(modifier = Modifier.padding(10.dp))
-
         Button(onClick = {},
             modifier= Modifier
                 .width(300.dp),

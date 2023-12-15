@@ -1,8 +1,10 @@
 package com.example.eyecareapp.ui.components.common
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,11 +42,21 @@ fun Banner (
         Row (
             modifier = Modifier
                 .padding(5.dp)
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceEvenly
         )
         {
             Column {
                 Text(
-                    text = "Temukan Kacamata",
+                    text= stringResource(id = R.string.welcome),
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                )
+                Text(
+                    text = stringResource(id = R.string.banner_text1),
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
@@ -51,7 +64,7 @@ fun Banner (
                     )
                 )
                 Text(
-                    text = "Sesuai Selera dan Kebutuhanmu",
+                    text = stringResource(id = R.string.banner_text2),
                     style = TextStyle(
                         fontSize = 10.sp,
                         fontWeight = FontWeight.SemiBold,

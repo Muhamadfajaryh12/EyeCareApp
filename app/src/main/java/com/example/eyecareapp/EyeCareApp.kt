@@ -46,6 +46,7 @@ fun EyeCareApp (
         "Profile/Change" -> false
         "Test/BlindColour" -> false
         "Test/Hypomia" -> false
+        "Register"-> false
         else -> true
     }
     Scaffold (
