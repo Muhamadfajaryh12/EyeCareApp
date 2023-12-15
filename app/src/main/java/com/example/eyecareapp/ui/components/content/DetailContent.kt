@@ -175,7 +175,9 @@ fun DetailContent(
                     imageVector = Icons.Default.Favorite,
                     contentDescription ="Wishlist",
                     modifier = Modifier
-                        .clickable { unChecked(Glass(id,title,image,price,type)) }
+                        .clickable {
+                            unChecked(Glass(id,title,image,price,type))
+                        }
                         .size(30.dp)
                 )
             }

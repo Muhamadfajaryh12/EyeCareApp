@@ -1,5 +1,6 @@
 package com.example.eyecareapp.ui.components.common
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -19,13 +20,15 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 @Composable
 fun CategoryCard(
    title:String,
-   photo:String
+   photo:String,
+   category:(String)->Unit
 )
 {
    Column (
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
          .height(80.dp)
+         .clickable { category(title) }
    ){
       AsyncImage(
          model = photo,
@@ -49,6 +52,8 @@ fun prevCategoryCard(){
    EyeCareAppTheme {
       CategoryCard(
          title = "Hypomia",
-         photo = "https://s1.bukalapak.com/img/1678161611/w-1000/Frame_Kacamata_Bulat_EIDIYA_BLACK_E6107_C22_12M17.jpg")
+         photo = "https://s1.bukalapak.com/img/1678161611/w-1000/Frame_Kacamata_Bulat_EIDIYA_BLACK_E6107_C22_12M17.jpg",
+         category = {}
+      )
    }
 }

@@ -14,6 +14,17 @@ class WishlistRepository private constructor(private val glassDao : GlassDao){
         }
     }
 
+    fun searchFood(query:String):List<Glass>{
+        return GlassData.glass.filter {
+            it.title.contains(query,ignoreCase = true)
+        }
+    }
+    fun getGlassByCategory(type:String):List<Glass>{
+        return GlassData.glass.filter{
+            it.type == type
+        }
+    }
+
     suspend fun addWishlist(glass: Glass){
         return glassDao.addWishlist(glass)
     }

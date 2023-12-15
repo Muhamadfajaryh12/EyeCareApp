@@ -18,10 +18,14 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun Search (modifier: Modifier = Modifier){
+fun Search (
+    modifier: Modifier = Modifier,
+    query: String,
+    onQueryChange :(String)->Unit
+){
     SearchBar(
-        query="",
-        onQueryChange={},
+        query=query,
+        onQueryChange=onQueryChange,
         onSearch={},
         active = false,
         onActiveChange = {},
@@ -47,6 +51,9 @@ fun Search (modifier: Modifier = Modifier){
 @Composable
 fun SearchPreview() {
     EyeCareAppTheme {
-        Search()
+        Search(
+            onQueryChange = {},
+            query = ""
+        )
     }
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
 import com.example.eyecareapp.data.CategoryGlassData
+import com.example.eyecareapp.data.Glass
 import com.example.eyecareapp.data.GlassData
 import com.example.eyecareapp.ui.components.common.Banner
 import com.example.eyecareapp.ui.components.common.CategoryCard
@@ -32,7 +33,11 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun HomeContent(
-    navigateToDetail:(Int) -> Unit
+    navigateToDetail:(Int) -> Unit,
+    glass:List<Glass>,
+    query: String,
+    onQueryChange:(String)-> Unit,
+    Category:(String)->Unit
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -50,29 +55,32 @@ fun HomeContent(
                 )
                 LazyRow {
                     items(CategoryGlassData.category, key = { it.id }) { category ->
-                        CategoryCard(title = category.title, photo = category.image)
+                        CategoryCard(title = category.title, photo = category.image, category=Category )
                     }
                 }
             }
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Search()
+        Search(
+            onQueryChange = onQueryChange,
+            query = query
+        )
         Spacer(modifier = Modifier.padding(5.dp))
-        Box(modifier = Modifier){
-            Text(
-                text = stringResource(id = R.string.list_kacamata),
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
-                )
+        Text(
+            text = stringResource(id = R.string.list_kacamata),
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp
             )
+        )
+        Box(modifier = Modifier){
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(130.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
             ){
-                items(GlassData.glass, key={it.id}){
+                items(glass, key={it.id}){
                     glass ->
                     GlassesCard(title =glass.title , image =glass.image ,
                         price =glass.price , type = glass.type,
@@ -89,7 +97,11 @@ fun HomeContent(
 fun prevHomeContent(){
     EyeCareAppTheme {
         HomeContent(
-            navigateToDetail = {}
+            navigateToDetail = {},
+            query = "",
+            onQueryChange = {},
+            glass = GlassData.glass,
+            Category = {}
         )
     }
 }
