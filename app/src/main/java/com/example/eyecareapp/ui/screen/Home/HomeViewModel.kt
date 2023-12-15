@@ -1,8 +1,7 @@
 package com.example.eyecareapp.ui.screen.Home
 
-import androidx.lifecycle.ViewModel
-import com.example.eyecareapp.utils.RepositoryGlasses
+import com.example.eyecareapp.data.WishlistRepository
 
-class HomeViewModel (private val repositoryGlasses: RepositoryGlasses): ViewModel() {
+class HomeViewModel(private val repository: WishlistRepository) {
 
 }

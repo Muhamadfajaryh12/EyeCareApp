@@ -30,7 +30,7 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun HomeContent(
-    navigateToDetail:() -> Unit
+    navigateToDetail:(Int) -> Unit
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -68,7 +68,7 @@ fun HomeContent(
                     GlassesCard(title =glass.title , image =glass.image ,
                         price =glass.price , type = glass.type,
                         modifier = Modifier
-                            .clickable { navigateToDetail() }
+                            .clickable { navigateToDetail( glass.id) }
                         )
                 }
             }

@@ -13,7 +13,7 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun HomeScreen (
-navigateToDetail:() -> Unit
+navigateToDetail:(Int) -> Unit
 ){
     Column(
         modifier = Modifier
@@ -23,7 +23,7 @@ navigateToDetail:() -> Unit
     ) {
         HomeContent(
             navigateToDetail = navigateToDetail
-        )
+                )
     }
 
 }

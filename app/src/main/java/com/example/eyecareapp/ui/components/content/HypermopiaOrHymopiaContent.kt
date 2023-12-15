@@ -63,7 +63,7 @@ fun HypermopiaOrHymopiatestContent(
                         .clickable { /* Handle back action */ }
                 )
                 Text(
-                    text = "Hypermopia / Hymopiatest",
+                    text = "Vision Test",
                     style = TextStyle(
                         fontSize = 20.sp,
                         color = Color.Black

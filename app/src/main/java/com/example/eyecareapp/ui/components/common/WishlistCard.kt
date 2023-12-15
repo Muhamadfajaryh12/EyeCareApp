@@ -1,11 +1,13 @@
 package com.example.eyecareapp.ui.components.common
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,16 +22,25 @@ import coil.compose.AsyncImage
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
-fun WishlistCard () {
+fun WishlistCard (
+    title : String,
+    image : String,
+    price : String,
+    id:Int,
+    navigateToDetail:(Int) -> Unit
+) {
     Box(
         modifier = Modifier
             .border(width = 1.dp, color = Color.Black)
             .width(300.dp)
             .height(60.dp)
+            .clickable {
+                navigateToDetail(id)
+            }
     ){
         Row {
             AsyncImage(
-                model = "https://s1.bukalapak.com/img/1678161611/w-1000/Frame_Kacamata_Bulat_EIDIYA_BLACK_E6107_C22_12M17.jpg",
+                model = image,
                 contentDescription = null,
                 modifier = Modifier
                     .width(60.dp)
@@ -37,17 +48,17 @@ fun WishlistCard () {
             )
             Column (
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.height(60.dp)
+                modifier = Modifier.height(60.dp).padding(10.dp)
             ) {
                 Text(
-                    text = "Glasses",
+                    text = title,
                     style = TextStyle(
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 12.sp
                     )
                 )
                     Text(
-                        text = "Harga : Rp.1.000.000",
+                        text = price,
                         style = TextStyle(
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp
@@ -62,6 +73,8 @@ fun WishlistCard () {
 @Composable
 fun prevWishlistCard(){
     EyeCareAppTheme {
-        WishlistCard()
+        WishlistCard(
+            title = "test", image = "test", price = "test", id = 1, navigateToDetail = {}
+        )
     }
 }

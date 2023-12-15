@@ -11,7 +11,9 @@ sealed class Screen(val route:String){
     object cart:Screen("Cart")
     object payment:Screen("Cart/Payment")
     object profile:Screen("Profile")
-    object detail:Screen("Home/Detail")
+    object detail:Screen("Home/{id}"){
+        fun createRoute(id:Int) = "Home/$id"
+    }
     object changeprofile:Screen("Profile/Change")
 
 }
