@@ -1,9 +1,22 @@
 package com.example.eyecareapp.data
 
+import androidx.lifecycle.liveData
+import com.example.eyecareapp.data.preference.UserModel
+import com.example.eyecareapp.data.preference.UserPreferences
+import com.example.eyecareapp.data.response.ResponseError
+import com.example.eyecareapp.data.response.ResponseRegister
+import com.example.eyecareapp.data.retrofit.ApiService
 import com.example.eyecareapp.database.GlassDao
+import com.example.eyecareapp.ui.common.UiState
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
+import retrofit2.HttpException
 
-class WishlistRepository private constructor(private val glassDao : GlassDao){
+class WishlistRepository private constructor(
+    private val glassDao : GlassDao,
+    private val apiService : ApiService,
+    private val userPreferences: UserPreferences
+    ){
     fun getAllGlasses(): List<Glass> {
         return GlassData.glass
     }
@@ -41,14 +54,48 @@ class WishlistRepository private constructor(private val glassDao : GlassDao){
         return glassDao.getWishlistById(id)
     }
 
+    suspend fun register( name: String, email:String, password: String, password_confirmation:String, tc:Boolean): ResponseRegister {
+            return apiService.register(name, email, password,password_confirmation,tc)
+    }
+
+    fun login(email:String,password: String)= liveData {
+        emit(UiState.Loading)
+        try{
+            val response = apiService.login(email,password)
+            emit(UiState.Success(response))
+        }catch(e: HttpException){
+            val errorBody = e.response()?.errorBody()?.string()
+            val responseError= Gson().fromJson(errorBody, ResponseError::class.java)
+            emit(UiState.Error(responseError.message.toString()))
+        }
+    }
+
+    suspend fun saveSession(user: UserModel) {
+        userPreferences.saveSession(user)
+    }
+
+    fun getSession(): Flow<UserModel> {
+        return userPreferences.getSession()
+    }
+
+    suspend fun logout() {
+        userPreferences.logout()
+    }
     companion object{
         @Volatile
         private var instance : WishlistRepository? = null
-        fun getInstance(glassDao: GlassDao):WishlistRepository  =
+        fun getInstance(
+            glassDao: GlassDao,
+            apiService: ApiService,
+            userPreferences: UserPreferences
+        ):WishlistRepository  =
             instance ?: synchronized(this){
-                WishlistRepository(glassDao).apply {
+                WishlistRepository(glassDao,apiService,userPreferences).apply {
                     instance = this
                 }
             }
+        fun refreshRepository() {
+            instance = null
+        }
     }
 }

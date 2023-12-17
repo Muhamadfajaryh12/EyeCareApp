@@ -12,7 +12,9 @@ import com.example.eyecareapp.ui.components.content.CartContent
 @Composable
 fun CartScreen(
     viewModel: CartViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository(LocalContext.current))
+         factory = ViewModelFactory(
+            Injection.provideRepository(LocalContext.current),
+        )
     ),
     navigateToDetail:(Int) -> Unit
 ) {

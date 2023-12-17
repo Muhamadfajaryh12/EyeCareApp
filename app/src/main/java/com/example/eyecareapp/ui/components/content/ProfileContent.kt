@@ -33,9 +33,10 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun ProfileContent (
-    navigateToChangeProfile : () -> Unit
+    navigateToChangeProfile : () -> Unit,
+    logout: ()-> Unit,
+    navigateToLogin: () -> Unit
 ) {
-
     Box(modifier = Modifier.padding(10.dp)){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -91,7 +92,10 @@ fun ProfileContent (
             horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        logout()
+                        navigateToLogin()
+                              },
                     modifier = Modifier
                         .width(140.dp)
                         .height(40.dp),
@@ -134,7 +138,9 @@ fun ProfileContent (
 fun prevProfileContent () {
     EyeCareAppTheme {
         ProfileContent(
-            navigateToChangeProfile = {}
+            navigateToChangeProfile = {},
+            logout = {},
+            navigateToLogin={}
         )
     }
 }

@@ -50,7 +50,8 @@ fun DetailContent(
     title:String,
     image:String,
     type:String,
-    price:String
+    price:String,
+    showSnackbar:(String)->Unit
 ) {
     Column(modifier = Modifier
         .padding(10.dp)
@@ -177,6 +178,7 @@ fun DetailContent(
                     modifier = Modifier
                         .clickable {
                             unChecked(Glass(id,title,image,price,type))
+                            showSnackbar("Remove glasses from wishlist ")
                         }
                         .size(30.dp)
                 )
@@ -186,7 +188,10 @@ fun DetailContent(
                     imageVector = Icons.Default.FavoriteBorder,
                     contentDescription = "Wishlist",
                     modifier = Modifier
-                        .clickable { isChecked(Glass(id,title,image,price,type)) }
+                        .clickable {
+                            isChecked(Glass(id,title,image,price,type))
+                            showSnackbar("Added glasses to wishlist")
+                        }
                         .size(30.dp)
                 )
 
@@ -235,7 +240,8 @@ fun prevDetailContent (){
             title = "test",
             image="test",
             type="test",
-            price="test"
+            price="test",
+            showSnackbar = {}
         )
     }
 }

@@ -6,8 +6,15 @@ import com.example.eyecareapp.data.WishlistRepository
 import com.example.eyecareapp.ui.screen.Cart.CartViewModel
 import com.example.eyecareapp.ui.screen.Detail.DetailViewModel
 import com.example.eyecareapp.ui.screen.Home.HomeViewModel
+import com.example.eyecareapp.ui.screen.Login.LoginViewModel
+import com.example.eyecareapp.ui.screen.Profile.ProfileViewModel
+import com.example.eyecareapp.ui.screen.Register.RegisterViewModel
 
-class ViewModelFactory(private val wishlistRepository: WishlistRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory
+    (
+    private val wishlistRepository: WishlistRepository
+            )
+    : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create (modelClass:Class<T>):T{
             if(modelClass.isAssignableFrom(HomeViewModel::class.java)){
                 return HomeViewModel(wishlistRepository) as T
@@ -18,7 +25,15 @@ class ViewModelFactory(private val wishlistRepository: WishlistRepository) : Vie
             else if (modelClass.isAssignableFrom(CartViewModel::class.java)){
                 return CartViewModel(wishlistRepository) as T
             }
-
+            else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)){
+                return RegisterViewModel(wishlistRepository) as T
+            }
+            else if(modelClass.isAssignableFrom(LoginViewModel::class.java)){
+                return LoginViewModel(wishlistRepository) as T
+            }
+            else if(modelClass.isAssignableFrom(ProfileViewModel::class.java)){
+                return ProfileViewModel(wishlistRepository) as T
+            }
             throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
 }

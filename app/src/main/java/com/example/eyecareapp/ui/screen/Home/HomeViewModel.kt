@@ -17,7 +17,7 @@ class HomeViewModel(private val repository: WishlistRepository): ViewModel(){
     private val _query = mutableStateOf("")
     val query: State<String> get() = _query
     fun getAllGlass(){
-        _glass.value =UiState.Loading
+        _glass.value = UiState.Loading
         _glass.value = UiState.Success(repository.getAllGlasses().sortedBy { it.title })
     }
 

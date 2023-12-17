@@ -31,24 +31,29 @@ import com.example.eyecareapp.ui.screen.Test.Hypomia.HypomiaScreen
 import com.example.eyecareapp.ui.screen.Test.Result.ResultScreen
 import com.example.eyecareapp.ui.screen.Test.TestScreen
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EyeCareApp (
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ){
+
+
     val navController = rememberNavController()
     var showBottomBar by rememberSaveable { mutableStateOf(true) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     showBottomBar = when (navBackStackEntry?.destination?.route) {
         "Home/{id}" -> false
-        "Cart/Payment"-> false
+        "Cart/Payment" -> false
         "Profile/Change" -> false
         "Test/BlindColour" -> false
         "Test/Hypomia" -> false
-        "Register"-> false
+        "Register" -> false
+        "Login"-> false
         else -> true
     }
+
     Scaffold (
             bottomBar = {
                     if(showBottomBar){
@@ -67,6 +72,9 @@ fun EyeCareApp (
                 LoginScreen(
                     navigateToRegister = {
                         navController.navigate(Screen.register.route)
+                    },
+                    navigateToHome = {
+                        navController.navigate(Screen.home.route)
                     }
                 )
             }
@@ -135,6 +143,9 @@ fun EyeCareApp (
                 ProfileScreen(
                     navigateToChangeProfile = {
                         navController.navigate(Screen.changeprofile.route)
+                    },
+                    navigateToLogin = {
+                        navController.navigate(Screen.login.route)
                     }
                 )
             }
@@ -157,5 +168,6 @@ fun EyeCareApp (
             }
         }
     }
-
 }
+
+

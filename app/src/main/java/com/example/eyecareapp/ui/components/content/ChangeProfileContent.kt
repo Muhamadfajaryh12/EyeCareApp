@@ -21,6 +21,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +41,10 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 fun ChangeProfileContent(
     navigateBack : () -> Unit
 ) {
+    var email by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var password_confirmation by remember { mutableStateOf("") }
     Box(modifier = Modifier.padding(10.dp)){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -85,25 +93,29 @@ fun ChangeProfileContent(
             InputWithIcon(
                 icon = Icons.Default.Email,
                 label = "Email Address",
-                placeholder = "Masukkan Email Anda"
+                placeholder = "Masukkan Email Anda",
+                onValueChange = {email = it}
             )
             Spacer(modifier = Modifier.padding(5.dp))
             InputWithIcon(
                 icon = Icons.Default.Person,
                 label = "Username",
-                placeholder = "Masukkan Username Anda"
+                placeholder = "Masukkan Username Anda",
+                onValueChange = {username = it}
             )
             Spacer(modifier = Modifier.padding(5.dp))
             InputWithIcon(
                 icon = Icons.Default.Lock,
                 label = "Password",
-                placeholder = "Masukkan Password Baru Anda"
+                placeholder = "Masukkan Password Baru Anda",
+                onValueChange = {password = it}
             )
             Spacer(modifier = Modifier.padding(5.dp))
             InputWithIcon(
                 icon = Icons.Default.Lock,
                 label = "Re-Password",
-                placeholder = "MAsukkan Kembali Password Baru Anda"
+                placeholder = "MAsukkan Kembali Password Baru Anda",
+                onValueChange = {password_confirmation = it}
             )
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { /*TODO*/ },

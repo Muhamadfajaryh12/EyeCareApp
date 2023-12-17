@@ -21,25 +21,40 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.example.eyecareapp.R
+import com.example.eyecareapp.data.preference.UserModel
+import com.example.eyecareapp.ui.common.UiState
 import com.example.eyecareapp.ui.components.common.InputWithIcon
-import com.example.eyecareapp.ui.theme.EyeCareAppTheme
+import com.example.eyecareapp.ui.screen.Login.LoginViewModel
 
 @Composable
 fun LoginContent (
-    navigateToRegister : () -> Unit
+    navigateToRegister : () -> Unit,
+    navigateToHome:()->Unit,
+    viewModel:LoginViewModel,
+    showSnackBar:(String)->Unit
 ) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val navController = rememberNavController()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -87,7 +102,9 @@ fun LoginContent (
         Image(
             painter = painterResource(id = R.drawable.glasses),
             contentDescription = "",
-            modifier = Modifier.width(120.dp).height(120.dp)
+            modifier = Modifier
+                .width(120.dp)
+                .height(120.dp)
         )
         Text(
             text = stringResource(id = R.string.main_name),
@@ -101,16 +118,36 @@ fun LoginContent (
         InputWithIcon(
             icon = Icons.Default.Email ,
             placeholder = stringResource(id = R.string.placeholder_email),
-            label = stringResource(id = R.string.email)
+            label = stringResource(id = R.string.email),
+            onValueChange = {email = it}
         )
         Spacer(modifier = Modifier.padding(10.dp))
         InputWithIcon(
             icon = Icons.Default.Lock ,
             placeholder = stringResource(id = R.string.placeholder_password),
-            label = stringResource(id = R.string.password)
+            label = "Password",
+            onValueChange = {password = it}
         )
         Spacer(modifier = Modifier.padding(10.dp))
-        Button(onClick = {},
+        Button(onClick = {
+                         viewModel.login(email,password).observe(lifecycleOwner){
+                             user-> when(user){
+                                 is UiState.Loading->{}
+                                is UiState.Success->{
+                                    if(user.data.status == "success"){
+                                        viewModel.saveSession(UserModel(user.data.token.toString()))
+                                        navigateToHome()
+                                    }
+                                    else{
+                                        showSnackBar(user.data.message.toString())
+                                    }
+                                }
+                                 is UiState.Error->{
+                                     showSnackBar(user.errorMessage)
+                                 }
+                             }
+                         }
+        },
             modifier= Modifier
                 .width(300.dp),
             shape = RoundedCornerShape(5.dp),
@@ -141,16 +178,5 @@ fun LoginContent (
                     .clickable { navigateToRegister() }
             )
         }
-    }
-}
-
-@Preview (showBackground = true)
-@Composable
-
-fun PrevLoginContent () {
-    EyeCareAppTheme {
-        LoginContent(
-            navigateToRegister = {}
-        )
     }
 }
