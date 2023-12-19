@@ -29,6 +29,7 @@ fun CategoryCard(
    category:(String)->Unit
 )
 {
+
    Column (
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier

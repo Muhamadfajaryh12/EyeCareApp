@@ -21,5 +21,9 @@ data class OrderGlassData(
     @ColumnInfo(name="payment")
     val payment:String,
     @ColumnInfo(name="status")
-    val status:String
+    val status:String,
+    @ColumnInfo(name="account")
+    val account:String,
+    @ColumnInfo(name="address")
+    val address:String
 )

@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
 import com.example.eyecareapp.data.OrderGlassData
+import com.example.eyecareapp.ui.components.common.InputAddress
+import com.example.eyecareapp.ui.components.common.InputWithIcon
 import com.example.eyecareapp.ui.screen.Payment.PaymentViewModel
 
 @Composable
@@ -47,6 +51,8 @@ fun PaymentContent(
     viewModel: PaymentViewModel
 ) {
     var selectedBank by remember { mutableStateOf<BankInfo?>(null) }
+    var accountNumber by remember { mutableStateOf("") }
+    var address by remember{ mutableStateOf("") }
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -71,8 +77,33 @@ fun PaymentContent(
         }
         Spacer(modifier = Modifier.padding(5.dp))
 
-        Button(onClick ={viewModel.addOrder(OrderGlassData(id,title,image,ukuran,warna,selectedBank?.name.toString(),"Dalam Pengiriman"))} ) {
+        InputWithIcon(
+            icon = Icons.Default.Info,
+            placeholder = "Account number",
+            label = "Account number" ,
+            onValueChange = {accountNumber = it}
+        )
 
+        InputAddress(
+            placeholder = "Enter your address",
+            label = "Address" ,
+            onValueChange ={address = it},
+        )
+        Spacer(modifier = Modifier.padding(5.dp))
+
+        Button(onClick ={viewModel.addOrder(OrderGlassData(
+            id,
+            title,
+            image,
+            ukuran,
+            warna,
+            selectedBank?.name.toString(),
+            "Dalam Pengiriman",
+            accountNumber,
+            address
+        ))},            modifier= Modifier.width(300.dp)
+        ) {
+            Text(text = "Confirm")
         }
     }
 }

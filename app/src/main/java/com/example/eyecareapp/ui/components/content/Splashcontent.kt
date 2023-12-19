@@ -6,13 +6,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -32,7 +37,7 @@ class SplashContent : ComponentActivity() {
         setContent {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = Color.White // Set your desired background color
+                color = Color.White
             ) {
                 SplashContent(onTimeout = {
                     startActivity(Intent(this, MainActivity::class.java))
@@ -55,20 +60,18 @@ fun SplashContent(onTimeout: () -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Box at the top of the screen
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp) // Set the desired height
+                .height(300.dp)
                 .align(Alignment.TopCenter)
-                .background(color = Color(0xFF4682A9)) // Set the desired color
+                .background(color = Color(0xFF4682A9))
         )
 
-        // Content in the middle of the screen
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 16.dp), // Reduce padding at the bottom for the aquarium element
+                .padding(bottom = 16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -90,13 +93,12 @@ fun SplashContent(onTimeout: () -> Unit) {
             )
         }
 
-        // Aquarium element at the bottom of the screen
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp) // Height of the aquarium water
+                .height(300.dp)
                 .align(Alignment.BottomCenter)
-                .background(color = Color(0xFF4682A9)) // Color of the aquarium water
+                .background(color = Color(0xFF4682A9))
         )
     }
 }

@@ -3,6 +3,7 @@ package com.example.eyecareapp.data.retrofit
 import com.example.eyecareapp.data.response.ResponseRegister
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -29,4 +30,7 @@ interface ApiService {
         @Field("password") password:String,
         @Field("password_confirmation") passwordConfirmation: String
     ):ResponseRegister
+
+    @GET("user/:id")
+    suspend fun detail()
 }

@@ -1,16 +1,16 @@
 package com.example.eyecareapp.ui.components.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,60 +30,67 @@ fun OrderCard(
     image:String,
     status:String
 ) {
-    Spacer(modifier = Modifier.padding(5.dp))
-    Box(
+    Card (
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp
+        ),
         modifier = Modifier
-            .border(width = 1.dp, color = Color.Black)
             .width(300.dp)
             .height(60.dp)
-            .clip(shape = RoundedCornerShape(10.dp))
-    ){
-        Row {
-            AsyncImage(
-                model = image,
-                contentDescription = null,
-                modifier = Modifier
-                    .width(60.dp)
-                    .height(60.dp)
-            )
-            Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.height(60.dp)
-            ) {
-                Text(
-                    text = title,
-                    style = TextStyle(
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 12.sp
-                    )
+            .padding(5.dp),
+        shape = RoundedCornerShape(5.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
+    ) {
+            Row {
+                AsyncImage(
+                    model = image,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(60.dp)
+                        .height(60.dp)
                 )
-                Row {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.height(60.dp)
+                ) {
                     Text(
-                        text = "Status : ",
+                        text = title,
                         style = TextStyle(
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp
-                        ),
-                        modifier = Modifier.padding(2.dp)
+                        )
                     )
-                    Box(modifier = Modifier
-                        .background(Color(0xFFFF9900))
-                        .clip(shape = RoundedCornerShape(5.dp))
-                    ){
+                    Row {
                         Text(
-                            text = status,
+                            text = "Status : ",
                             style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
-                                fontSize = 12.sp,
-                                color = Color.White,
+                                fontSize = 12.sp
                             ),
-                            modifier = Modifier
-                                .padding(2.dp)
+                            modifier = Modifier.padding(2.dp)
                         )
+                        Box(
+                            modifier = Modifier
+                                .background(Color(0xFFFF9900))
+                                .clip(shape = RoundedCornerShape(5.dp))
+                        ) {
+                            Text(
+                                text = status,
+                                style = TextStyle(
+                                    fontWeight = FontWeight.SemiBold,
+                                    fontSize = 12.sp,
+                                    color = Color.White,
+                                ),
+                                modifier = Modifier
+                                    .padding(2.dp)
+                            )
+                        }
                     }
                 }
             }
-        }
+
     }
 }
 

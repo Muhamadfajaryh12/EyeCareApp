@@ -1,7 +1,7 @@
 package com.example.eyecareapp.ui.components.common
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,12 +10,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun InputWithIcon(
-    icon:ImageVector,
+fun InputAddress(
     placeholder:String,
     label:String,
     onValueChange:(String)->Unit
@@ -23,7 +21,6 @@ fun InputWithIcon(
     var text by remember { mutableStateOf("") }
     return OutlinedTextField(
         value = text,
-        leadingIcon = { Icon(imageVector = icon, contentDescription = label) },
         onValueChange = {
             text = it
             onValueChange(it)
@@ -32,5 +29,6 @@ fun InputWithIcon(
         placeholder = { Text(text = placeholder) },
         modifier = Modifier
             .width(300.dp)
+            .height(100.dp)
     )
 }

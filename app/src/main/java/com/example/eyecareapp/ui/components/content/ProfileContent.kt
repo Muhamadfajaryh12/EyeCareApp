@@ -110,7 +110,6 @@ fun ProfileContent (
                         )
                     )
                 }
-
                 Button(
                     onClick = { navigateToChangeProfile() },
                     modifier = Modifier
