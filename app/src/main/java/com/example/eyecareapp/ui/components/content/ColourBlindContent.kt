@@ -12,15 +12,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -113,29 +119,40 @@ fun ColourBlindContent(
 @Composable
 fun AnswerOptionItem(option: String) {
     Spacer(modifier = Modifier.padding(10.dp))
-    Box(
+    Row(
         modifier = Modifier
-            .width(300.dp)
+            .widthIn(max = 350.dp)
             .clip(shape = RoundedCornerShape(5.dp))
             .background(Color.White)
-            .padding(5.dp)
+            .padding(horizontal = 50.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
+        Text(
+            text = option,
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = Color.Black
+            ),
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = option,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-        }
+                .weight(1f)
+                .padding(vertical = 8.dp)
+        )
+
+        Spacer(modifier = Modifier.width(16.dp)) // Adjust the width as needed
+
+        // Checkbox untuk customize
+        var isChecked by remember { mutableStateOf(false) }
+
+        Checkbox(
+            checked = isChecked,
+            onCheckedChange = { isChecked = it },
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
     }
 }
+
+
+
 
 val answerOptions = listOf("Option 1", "Option 2", "Option 3")
 
