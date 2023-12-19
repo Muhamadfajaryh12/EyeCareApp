@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,8 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.MainActivity
 import com.example.eyecareapp.R
 import kotlinx.coroutines.delay
@@ -58,20 +62,13 @@ fun SplashContent(onTimeout: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
-                .align(Alignment.TopCenter)
-                .background(color = Color(0xFF4682A9))
-        )
-
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 16.dp),
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -79,36 +76,48 @@ fun SplashContent(onTimeout: () -> Unit) {
                 painter = painterResource(id = R.drawable.glasses),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(110.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFF4682A9))
-                    .padding(16.dp)
+                    .padding(5.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Eye Care",
-                color = Color.Black
+                text = stringResource(id = R.string.main_name),
+                style = TextStyle(
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0XFF4682A9)
+                )
             )
         }
 
+        // Box terpisah untuk kolom bagian dibawah (teks "eye care")
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp)
-                .align(Alignment.BottomCenter)
-                .background(color = Color(0xFF4682A9))
-        )
+                .height(350.dp)
+                .padding(1.dp)
+                .align(Alignment.BottomCenter),
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.vector2),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(1.dp)
+            )
+        }
     }
 }
+
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun SplashScreenPreview() {
     SplashContent(onTimeout = {})
 }
-
-
-
-
