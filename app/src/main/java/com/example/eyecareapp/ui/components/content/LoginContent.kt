@@ -133,6 +133,7 @@ fun LoginContent (
                                     }
                                     else{
                                         showSnackBar(user.data.message.toString())
+
                                     }
                                 }
                                  is UiState.Error->{
@@ -173,3 +174,4 @@ fun LoginContent (
         }
     }
 }
+

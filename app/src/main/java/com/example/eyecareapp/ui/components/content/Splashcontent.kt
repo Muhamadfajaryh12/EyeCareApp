@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -61,8 +62,7 @@ fun SplashContent(onTimeout: () -> Unit) {
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -93,12 +93,10 @@ fun SplashContent(onTimeout: () -> Unit) {
             )
         }
 
-        // Box terpisah untuk kolom bagian dibawah (teks "eye care")
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(350.dp)
-                .padding(1.dp)
+                .height(360.dp)
                 .align(Alignment.BottomCenter),
         ) {
             Image(
@@ -106,8 +104,8 @@ fun SplashContent(onTimeout: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth()
-                    .padding(1.dp)
+                    .fillMaxWidth(),
+                contentScale = ContentScale.FillHeight
             )
         }
     }

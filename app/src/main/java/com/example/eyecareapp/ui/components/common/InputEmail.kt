@@ -1,6 +1,8 @@
 package com.example.eyecareapp.ui.components.common
 
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -11,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
@@ -41,7 +44,10 @@ fun InputEmail(
             Text(text = placeholder)
         },
         isError = isError,
-        modifier = Modifier.width(300.dp)
+        modifier = Modifier.width(300.dp),
+        trailingIcon = {
+            if(isError) Icon(Icons.Filled.Info,"Error",tint = Color.Red)
+        }
     )
     if (isError) {
         Text(

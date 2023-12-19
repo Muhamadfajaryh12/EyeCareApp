@@ -1,5 +1,6 @@
 package com.example.eyecareapp.ui.components.content
 
+import Alert
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,9 +16,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -102,39 +105,39 @@ fun RegisterContent (
             painter = painterResource(id = R.drawable.glasses),
             contentDescription = "",
             modifier = Modifier
-                .width(120.dp)
-                .height(120.dp)
+                .width(100.dp)
+                .height(100.dp)
         )
         Text(
             text = stringResource(id = R.string.main_name),
             style = TextStyle(
-                fontSize = 28.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0XFF4682A9)
             )
         )
-        Spacer(modifier = Modifier.padding(5.dp))
+        Spacer(modifier = Modifier.padding(3.dp))
         InputEmail(
             icon = Icons.Default.Email ,
             placeholder = stringResource(id = R.string.placeholder_email),
             label = stringResource(id = R.string.email),
             onValueChange = {email = it}
         )
-        Spacer(modifier = Modifier.padding(5.dp))
+        Spacer(modifier = Modifier.padding(3.dp))
         InputWithIcon(
             icon = Icons.Default.Person ,
             placeholder = stringResource(id = R.string.placeholder_username),
             label = "Username",
             onValueChange = {username = it}
         )
-        Spacer(modifier = Modifier.padding(5.dp))
+        Spacer(modifier = Modifier.padding(3.dp))
         InputPassword(
             icon = Icons.Default.Lock ,
             placeholder = stringResource(id = R.string.placeholder_password),
             label = "Password",
             onValueChange = {password = it}
             )
-        Spacer(modifier = Modifier.padding(5.dp))
+        Spacer(modifier = Modifier.padding(3.dp))
         InputPassword(
             icon = Icons.Default.Lock ,
             placeholder = "Enter your re-password",
@@ -182,7 +185,11 @@ fun RegisterContent (
 
             }
             is UiState.Success -> {
-                showSnackBar(registrationState.data)
+                if(registrationState.data.status == "success"){
+                    Alert("Success",registrationState.data.message.toString(),Icons.Default.Check,Color.Green)
+                }else{
+                    Alert("Failed",registrationState.data.message.toString(),Icons.Default.Warning,Color.Red)
+                }
             }
             is UiState.Error -> {
                 showSnackBar(registrationState.errorMessage)
