@@ -7,6 +7,7 @@ import com.example.eyecareapp.ui.screen.Cart.CartViewModel
 import com.example.eyecareapp.ui.screen.Detail.DetailViewModel
 import com.example.eyecareapp.ui.screen.Home.HomeViewModel
 import com.example.eyecareapp.ui.screen.Login.LoginViewModel
+import com.example.eyecareapp.ui.screen.Payment.PaymentViewModel
 import com.example.eyecareapp.ui.screen.Profile.ProfileViewModel
 import com.example.eyecareapp.ui.screen.Register.RegisterViewModel
 
@@ -34,6 +35,10 @@ class ViewModelFactory
             else if(modelClass.isAssignableFrom(ProfileViewModel::class.java)){
                 return ProfileViewModel(wishlistRepository) as T
             }
+            else if(modelClass.isAssignableFrom(PaymentViewModel::class.java)){
+                return PaymentViewModel(wishlistRepository) as T
+            }
             throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
+
 }

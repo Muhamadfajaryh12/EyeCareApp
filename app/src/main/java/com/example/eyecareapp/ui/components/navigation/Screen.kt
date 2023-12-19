@@ -9,7 +9,10 @@ sealed class Screen(val route:String){
     object hypomia:Screen("Test/Hypomia")
     object result:Screen("Result")
     object cart:Screen("Cart")
-    object payment:Screen("Cart/Payment")
+    object payment:Screen("Payment/{id}/{ukuran}/{warna}"){
+        fun createRoute(id:Int,ukuran:String,warna:String)
+        = "Payment/$id/$ukuran/$warna"
+    }
     object profile:Screen("Profile")
     object detail:Screen("Home/{id}"){
         fun createRoute(id:Int) = "Home/$id"

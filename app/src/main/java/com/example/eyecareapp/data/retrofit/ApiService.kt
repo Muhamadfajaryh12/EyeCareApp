@@ -22,4 +22,11 @@ interface ApiService {
         @Field("email") email:String,
         @Field("password") password: String
     ):ResponseRegister
+
+    @FormUrlEncoded
+    @POST("user/changepassword")
+    suspend fun changepassword(
+        @Field("password") password:String,
+        @Field("password_confirmation") passwordConfirmation: String
+    ):ResponseRegister
 }

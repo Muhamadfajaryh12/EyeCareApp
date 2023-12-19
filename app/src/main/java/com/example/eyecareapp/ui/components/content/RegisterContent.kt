@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
 import com.example.eyecareapp.ui.common.UiState
+import com.example.eyecareapp.ui.components.common.InputEmail
+import com.example.eyecareapp.ui.components.common.InputPassword
 import com.example.eyecareapp.ui.components.common.InputWithIcon
 import com.example.eyecareapp.ui.screen.Register.RegisterViewModel
 
@@ -112,7 +114,7 @@ fun RegisterContent (
             )
         )
         Spacer(modifier = Modifier.padding(5.dp))
-        InputWithIcon(
+        InputEmail(
             icon = Icons.Default.Email ,
             placeholder = stringResource(id = R.string.placeholder_email),
             label = stringResource(id = R.string.email),
@@ -126,17 +128,17 @@ fun RegisterContent (
             onValueChange = {username = it}
         )
         Spacer(modifier = Modifier.padding(5.dp))
-        InputWithIcon(
+        InputPassword(
             icon = Icons.Default.Lock ,
             placeholder = stringResource(id = R.string.placeholder_password),
             label = "Password",
             onValueChange = {password = it}
             )
         Spacer(modifier = Modifier.padding(5.dp))
-        InputWithIcon(
+        InputPassword(
             icon = Icons.Default.Lock ,
-            placeholder = stringResource(id = R.string.placeholder_password),
-            label = "Password",
+            placeholder = "Enter your re-password",
+            label = "Re-Password",
             onValueChange = {password_confirmation = it}
         )
         Spacer(modifier = Modifier.padding(3.dp))

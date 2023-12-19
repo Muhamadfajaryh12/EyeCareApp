@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailScreen (
-    navigateToPayment : () -> Unit,
+    navigateToPayment : (Int,String,String) -> Unit,
     navigateBack:()->Unit,
     id:Int,
     viewModel: DetailViewModel = viewModel(

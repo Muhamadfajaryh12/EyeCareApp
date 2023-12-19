@@ -45,7 +45,7 @@ fun EyeCareApp (
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     showBottomBar = when (navBackStackEntry?.destination?.route) {
         "Home/{id}" -> false
-        "Cart/Payment" -> false
+        "Payment/{id}/{ukuran}/{warna}" -> false
         "Profile/Change" -> false
         "Test/BlindColour" -> false
         "Test/Hypomia" -> false
@@ -131,8 +131,8 @@ fun EyeCareApp (
                 ){
                 val id = it.arguments?.getInt("id")?:-1L
                 DetailScreen( id = id as Int,
-                    navigateToPayment = {
-                        navController.navigate(Screen.payment.route)
+                    navigateToPayment = { id,ukuran,warna->
+                        navController.navigate(Screen.payment.createRoute(id,ukuran,warna))
                     },
                     navigateBack = {
                         navController.navigateUp()
@@ -156,8 +156,19 @@ fun EyeCareApp (
                     }
                 )
             }
-            composable(Screen.payment.route){
-                PaymentScreen()
+            composable(
+                route = Screen.payment.route,
+                arguments = listOf(
+                    navArgument("id"){type = NavType.IntType},
+                   navArgument("ukuran"){type= NavType.StringType},
+                    navArgument("warna"){type = NavType.StringType}
+                )
+            ){
+                val id = it.arguments?.getInt("id")?: -1L
+                val ukuran = it.arguments?.getString("ukuran") ?: ""
+                val warna = it.arguments?.getString("warna") ?: ""
+
+                PaymentScreen(id = id as Int,ukuran=ukuran,warna=warna)
             }
             composable(Screen.changeprofile.route){
                 ChangeProfileScreen(

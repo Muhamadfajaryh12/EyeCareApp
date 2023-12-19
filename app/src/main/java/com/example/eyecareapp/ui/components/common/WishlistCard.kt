@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -29,6 +30,7 @@ fun WishlistCard (
     id:Int,
     navigateToDetail:(Int) -> Unit
 ) {
+    Spacer(modifier = Modifier.padding(5.dp))
     Box(
         modifier = Modifier
             .border(width = 1.dp, color = Color.Black)

@@ -70,6 +70,9 @@ class WishlistRepository private constructor(
         }
     }
 
+    suspend fun changePassword(password: String, password_confirmation: String) : ResponseRegister{
+        return apiService.changepassword(password,password_confirmation)
+    }
     suspend fun saveSession(user: UserModel) {
         userPreferences.saveSession(user)
     }
@@ -81,6 +84,15 @@ class WishlistRepository private constructor(
     suspend fun logout() {
         userPreferences.logout()
     }
+
+    suspend fun insertOrder(orderGlassData: OrderGlassData){
+        return glassDao.addOrder(orderGlassData)
+    }
+    fun getAllOrder():Flow<List<OrderGlassData>>{
+        return glassDao.getAllOrder()
+    }
+
+
     companion object{
         @Volatile
         private var instance : WishlistRepository? = null

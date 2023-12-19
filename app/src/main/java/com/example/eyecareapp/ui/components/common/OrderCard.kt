@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -24,7 +25,12 @@ import coil.compose.AsyncImage
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
-fun OrderCard() {
+fun OrderCard(
+    title:String,
+    image:String,
+    status:String
+) {
+    Spacer(modifier = Modifier.padding(5.dp))
     Box(
         modifier = Modifier
             .border(width = 1.dp, color = Color.Black)
@@ -34,7 +40,7 @@ fun OrderCard() {
     ){
         Row {
             AsyncImage(
-                model = "https://s1.bukalapak.com/img/1678161611/w-1000/Frame_Kacamata_Bulat_EIDIYA_BLACK_E6107_C22_12M17.jpg",
+                model = image,
                 contentDescription = null,
                 modifier = Modifier
                     .width(60.dp)
@@ -45,7 +51,7 @@ fun OrderCard() {
                 modifier = Modifier.height(60.dp)
             ) {
                 Text(
-                    text = "Glasses",
+                    text = title,
                     style = TextStyle(
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 12.sp
@@ -65,7 +71,7 @@ fun OrderCard() {
                         .clip(shape = RoundedCornerShape(5.dp))
                     ){
                         Text(
-                            text = "Dalam pengiriman",
+                            text = status,
                             style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 12.sp,
@@ -85,6 +91,10 @@ fun OrderCard() {
 @Composable
 fun prevOrderCard () {
     EyeCareAppTheme {
-        OrderCard()
+        OrderCard(
+            title = "",
+            image = "",
+            status = ""
+        )
     }
 }

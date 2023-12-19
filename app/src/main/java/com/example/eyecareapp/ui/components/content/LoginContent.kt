@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,7 +41,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.eyecareapp.R
 import com.example.eyecareapp.data.preference.UserModel
 import com.example.eyecareapp.ui.common.UiState
-import com.example.eyecareapp.ui.components.common.InputWithIcon
+import com.example.eyecareapp.ui.components.common.InputEmail
+import com.example.eyecareapp.ui.components.common.InputPassword
 import com.example.eyecareapp.ui.screen.Login.LoginViewModel
 
 @Composable
@@ -54,6 +56,7 @@ fun LoginContent (
     var password by remember { mutableStateOf("") }
     val navController = rememberNavController()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
 
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,20 +118,10 @@ fun LoginContent (
             )
         )
         Spacer(modifier = Modifier.padding(10.dp))
-        InputWithIcon(
-            icon = Icons.Default.Email ,
-            placeholder = stringResource(id = R.string.placeholder_email),
-            label = stringResource(id = R.string.email),
-            onValueChange = {email = it}
-        )
-        Spacer(modifier = Modifier.padding(10.dp))
-        InputWithIcon(
-            icon = Icons.Default.Lock ,
-            placeholder = stringResource(id = R.string.placeholder_password),
-            label = "Password",
-            onValueChange = {password = it}
-        )
-        Spacer(modifier = Modifier.padding(10.dp))
+        InputEmail(icon = Icons.Default.Email, placeholder = "Email",label="Email",onValueChange={email = it})
+        Spacer(modifier = Modifier.padding(5.dp))
+        InputPassword(icon = Icons.Default.Lock, placeholder = "Password", label = "Password" , onValueChange = {password = it} )
+        Spacer(modifier = Modifier.padding(5.dp))
         Button(onClick = {
                          viewModel.login(email,password).observe(lifecycleOwner){
                              user-> when(user){

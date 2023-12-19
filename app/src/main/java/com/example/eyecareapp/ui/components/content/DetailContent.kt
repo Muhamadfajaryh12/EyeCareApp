@@ -1,5 +1,7 @@
 package com.example.eyecareapp.ui.components.content
 
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +26,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,17 +37,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.eyecareapp.data.Glass
-import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 
 @Composable
 fun DetailContent(
-    navigateToPayment : () -> Unit,
+    navigateToPayment : (Int,String,String) -> Unit,
     navigateBack:()-> Unit,
     checked:Boolean,
     unChecked:(Glass)->Unit,
@@ -53,6 +57,8 @@ fun DetailContent(
     price:String,
     showSnackbar:(String)->Unit
 ) {
+    var selectedWarna by remember { mutableStateOf<Warna?>(null) }
+    var selectedUkuran by remember { mutableStateOf<Ukuran?>(null) }
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxSize(),
@@ -113,7 +119,10 @@ fun DetailContent(
            ){
                items(optionWarnaDummy){
                    options ->
-                   boxSelected(Option = options)
+                   boxSelected(Option = options.name,
+                   isSelected = options == selectedWarna,
+                   onClick = {   selectedWarna = if(selectedWarna == options) null else options}
+                   )
                }
            }
             Text(
@@ -128,7 +137,11 @@ fun DetailContent(
             ){
                 items(optionUkuranDummy){
                         options ->
-                    boxSelected(Option = options)
+                    boxSelected(
+                        Option = options.ukuran,
+                        isSelected = options == selectedUkuran,
+                        onClick = {  selectedUkuran = if(selectedUkuran == options) null else options}
+                    )
                 }
             }
             Text(
@@ -198,7 +211,11 @@ fun DetailContent(
             }
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Button(onClick = { navigateToPayment() },
+        Button(onClick = {
+            navigateToPayment(id,selectedUkuran?.ukuran.toString(),selectedWarna?.name.toString())
+                         Log.d("test",selectedUkuran?.ukuran.toString())
+                         Log.d("Test",selectedWarna?.name.toString())
+                         },
             modifier = Modifier.width(300.dp)
         ) {
             Text(
@@ -208,40 +225,55 @@ fun DetailContent(
 }
 
 @Composable
-fun boxSelected (Option : String){
+fun boxSelected (
+    Option : String,
+    isSelected: Boolean,
+    onClick:()->Unit
+){
     Box(modifier = Modifier
         .padding(5.dp)
-        .border(width = 1.dp, color = Color.Black)
-        .clip(shape = RoundedCornerShape(5.dp))){
+        .border(width = 1.dp, color = Color.Black, RoundedCornerShape(5.dp))
+        .clip(shape = RoundedCornerShape(5.dp))
+        .background(if (isSelected) Color(0XFF4682A9) else Color.White)
+        .clickable{onClick()}
+    ){
         Text(
             text=Option,
             style= TextStyle(
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = (if(isSelected) Color.White else Color.Black)
             ),
             modifier = Modifier
                 .padding(5.dp)
         )
     }
 }
-val optionWarnaDummy = listOf("Biru","Merah","Hitam")
-val optionUkuranDummy = listOf("-0,50","-0,75","-1.00")
-@Preview (showBackground = true)
-@Composable
-fun prevDetailContent (){
-    EyeCareAppTheme {
-        DetailContent(
-            navigateToPayment ={},
-            navigateBack = {},
-            checked = false,
-            unChecked = {},
-            isChecked = {},
-            id = 1,
-            title = "test",
-            image="test",
-            type="test",
-            price="test",
-            showSnackbar = {}
-        )
-    }
-}
+data class Warna(val name:String)
+data class Ukuran(val ukuran:String)
+val optionWarnaDummy = listOf(
+    Warna("Biru"),Warna("Merah"),Warna("Hitam")
+)
+val optionUkuranDummy = listOf(
+    Ukuran("-0,50"),Ukuran("-0,75"),Ukuran("-1.00")
+)
+
+//@Preview (showBackground = true)
+//@Composable
+//fun prevDetailContent (){
+//    EyeCareAppTheme {
+//        DetailContent(
+//            navigateToPayment ={},
+//            navigateBack = {},
+//            checked = false,
+//            unChecked = {},
+//            isChecked = {},
+//            id = 1,
+//            title = "test",
+//            image="test",
+//            type="test",
+//            price="test",
+//            showSnackbar = {}
+//        )
+//    }
+//}
