@@ -1,6 +1,5 @@
 package com.example.eyecareapp.ui.components.content
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -211,10 +210,11 @@ fun DetailContent(
             }
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Button(onClick = {
-            navigateToPayment(id,selectedUkuran?.ukuran.toString(),selectedWarna?.name.toString())
-                         Log.d("test",selectedUkuran?.ukuran.toString())
-                         Log.d("Test",selectedWarna?.name.toString())
+        Button(
+            onClick = {
+                if(selectedUkuran?.ukuran != null && selectedWarna?.name !=null){
+                    navigateToPayment(id,selectedUkuran?.ukuran.toString(),selectedWarna?.name.toString())
+                }
                          },
             modifier = Modifier.width(300.dp)
         ) {
