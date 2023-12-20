@@ -24,7 +24,8 @@ import com.example.eyecareapp.ui.screen.Cart.CartViewModel
 @Composable
 fun CartContent (
     viewModel: CartViewModel,
-    navigateToDetail:(Int) -> Unit
+    navigateToDetail:(Int) -> Unit,
+    navigateToOrder:(Int)->Unit
 ) {
     Column (
         modifier = Modifier
@@ -44,18 +45,25 @@ fun CartContent (
                     viewModel.getAllOrder()
                 }
                 is UiState.Success->{
-                    LazyColumn(
-                        modifier=Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ){
-                        items(state.data){
-                            data->
-                            OrderCard(
-                                title = data.title,
-                                image = data.image,
-                                status = data.status
-                            )
+                    if(state.data.isNotEmpty()){
+                        LazyColumn(
+                            modifier=Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            items(state.data){
+                                    data->
+                                OrderCard(
+                                    title = data.title,
+                                    image = data.image,
+                                    status = data.status,
+                                    navigateToOrder = navigateToOrder,
+                                    id = data.id
+                                )
+                            }
                         }
+                    }
+                    else{
+                        Text(text="You haven't placed an order yet")
                     }
 
                 }
@@ -77,19 +85,24 @@ fun CartContent (
                     viewModel.getAllWishlist()
                 }
                 is UiState.Success->{
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ){
-                        items(state.data){ data ->
-                            WishlistCard(
-                                title = data.title,
-                                image = data.image,
-                                price = data.price,
-                                navigateToDetail = navigateToDetail,
-                                id = data.id
-                            )
+                    if(state.data.isNotEmpty()){
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            items(state.data){ data ->
+                                WishlistCard(
+                                    title = data.title,
+                                    image = data.image,
+                                    price = data.price,
+                                    navigateToDetail = navigateToDetail,
+                                    id = data.id
+                                )
+                            }
                         }
+                    }
+                    else{
+                        Text(text="You haven't placed an wishlist yet")
                     }
                 }
              is UiState.Error->{}

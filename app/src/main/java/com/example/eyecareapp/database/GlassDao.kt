@@ -29,4 +29,7 @@ interface GlassDao {
     @Query("SELECT * FROM Wishlist WHERE id = :id ")
     fun getWishlistById(id:Int):Flow<Glass>
 
+    @Query("SELECT * FROM OrderGlass WHERE id=:id")
+    fun getOrderById(id: Int):Flow<OrderGlassData>
+
 }

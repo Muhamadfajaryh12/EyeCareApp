@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,8 +18,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,7 +51,11 @@ fun PaymentContent(
     image:String,
     ukuran:String,
     warna:String,
-    viewModel: PaymentViewModel
+    type:String,
+    price:String,
+    viewModel: PaymentViewModel,
+    navigateBack:()->Unit,
+    navigateToCart:()->Unit
 ) {
     var selectedBank by remember { mutableStateOf<BankInfo?>(null) }
     var accountNumber by remember { mutableStateOf("") }
@@ -59,12 +66,31 @@ fun PaymentContent(
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ){
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription ="Back",
+                modifier = Modifier
+                    .clickable { navigateBack() }
+                    .padding( end = 5.dp)
+            )
+            Text(
+                text = "Payment",
+                style = TextStyle(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 20.sp
+                )
+            )
+        }
+
         PaymentCategory("Transaksi Bank", dummyBank, selectedBank) { bank ->
             selectedBank = bank
         }
-
         Spacer(modifier = Modifier.padding(5.dp))
-
 
         PaymentCategory("Transaksi Virtual", dummyMBank, selectedBank) { bank ->
             selectedBank = bank
@@ -91,17 +117,29 @@ fun PaymentContent(
         )
         Spacer(modifier = Modifier.padding(5.dp))
 
-        Button(onClick ={viewModel.addOrder(OrderGlassData(
-            id,
-            title,
-            image,
-            ukuran,
-            warna,
-            selectedBank?.name.toString(),
-            "Dalam Pengiriman",
-            accountNumber,
-            address
-        ))},            modifier= Modifier.width(300.dp)
+        Button(
+            onClick ={
+                if(accountNumber != null){
+                                viewModel.addOrder(
+                                        OrderGlassData(
+                                        id,
+                                        title,
+                                        image,
+                                        ukuran,
+                                        warna,
+                                        selectedBank?.name.toString(),
+                                        "Dalam Pengiriman",
+                                        accountNumber,
+                                        address,
+                                        type,
+                                        price
+                                        )
+                                )
+                        navigateToCart()
+                            }
+
+                                 },
+                    modifier= Modifier.width(300.dp)
         ) {
             Text(text = "Confirm")
         }

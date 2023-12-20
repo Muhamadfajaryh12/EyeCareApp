@@ -1,6 +1,7 @@
 package com.example.eyecareapp.di
 
 import android.content.Context
+import android.util.Log
 import com.example.eyecareapp.data.WishlistRepository
 import com.example.eyecareapp.data.preference.UserPreferences
 import com.example.eyecareapp.data.preference.dataStore
@@ -15,6 +16,7 @@ object Injection {
         val dao = db.glassDao()
         val pref = UserPreferences.getInstance(context.dataStore)
         val user = runBlocking { pref.getSession().first() }
+        Log.d("test",user.toString())
         val apiService = ApiConfig.getApiService(user.token)
         return WishlistRepository.getInstance(dao,apiService,pref)
     }

@@ -1,10 +1,13 @@
 package com.example.eyecareapp.data.retrofit
 
+import com.example.eyecareapp.data.response.ResponseLogin
+import com.example.eyecareapp.data.response.ResponseProfile
 import com.example.eyecareapp.data.response.ResponseRegister
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @FormUrlEncoded
@@ -22,7 +25,7 @@ interface ApiService {
     suspend fun login(
         @Field("email") email:String,
         @Field("password") password: String
-    ):ResponseRegister
+    ): ResponseLogin
 
     @FormUrlEncoded
     @POST("user/changepassword")
@@ -31,6 +34,6 @@ interface ApiService {
         @Field("password_confirmation") passwordConfirmation: String
     ):ResponseRegister
 
-    @GET("user/:id")
-    suspend fun detail()
+    @GET("user/{id}")
+    suspend fun profile(@Path("id") id:String):ResponseProfile
 }

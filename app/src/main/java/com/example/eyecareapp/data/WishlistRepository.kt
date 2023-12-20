@@ -4,6 +4,7 @@ import androidx.lifecycle.liveData
 import com.example.eyecareapp.data.preference.UserModel
 import com.example.eyecareapp.data.preference.UserPreferences
 import com.example.eyecareapp.data.response.ResponseError
+import com.example.eyecareapp.data.response.ResponseProfile
 import com.example.eyecareapp.data.response.ResponseRegister
 import com.example.eyecareapp.data.retrofit.ApiService
 import com.example.eyecareapp.database.GlassDao
@@ -32,12 +33,15 @@ class WishlistRepository private constructor(
             it.title.contains(query,ignoreCase = true)
         }
     }
-    fun getGlassByCategory(type:String):List<Glass>{
-        return GlassData.glass.filter{
-            it.type == type
+    fun getGlassByCategory(type: String): List<Glass> {
+        return if (type == "Default") {
+            GlassData.glass
+        } else {
+            GlassData.glass.filter {
+                it.type == type
+            }
         }
     }
-
     suspend fun addWishlist(glass: Glass){
         return glassDao.addWishlist(glass)
     }
@@ -70,6 +74,9 @@ class WishlistRepository private constructor(
         }
     }
 
+    suspend fun profile(id:String) : ResponseProfile{
+        return apiService.profile((id))
+    }
     suspend fun changePassword(password: String, password_confirmation: String) : ResponseRegister{
         return apiService.changepassword(password,password_confirmation)
     }
@@ -92,6 +99,9 @@ class WishlistRepository private constructor(
         return glassDao.getAllOrder()
     }
 
+    fun getOrderById(id:Int):Flow<OrderGlassData>{
+        return glassDao.getOrderById(id)
+    }
 
     companion object{
         @Volatile

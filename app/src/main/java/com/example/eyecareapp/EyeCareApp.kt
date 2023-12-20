@@ -19,6 +19,7 @@ import androidx.navigation.navArgument
 import com.example.eyecareapp.ui.components.navigation.Screen
 import com.example.eyecareapp.ui.components.navigation.bottomBar.BottomBar
 import com.example.eyecareapp.ui.screen.Cart.CartScreen
+import com.example.eyecareapp.ui.screen.Cart.Detail.OrderDetail
 import com.example.eyecareapp.ui.screen.Detail.DetailScreen
 import com.example.eyecareapp.ui.screen.Detail.Payment.PaymentScreen
 import com.example.eyecareapp.ui.screen.Home.HomeScreen
@@ -51,6 +52,7 @@ fun EyeCareApp (
         "Test/Hypomia" -> false
         "Register" -> false
         "Login"-> false
+        "Order/{id}"->false
         else -> true
     }
 
@@ -139,6 +141,19 @@ fun EyeCareApp (
                     }
                 )
             }
+            composable(
+                route = Screen.detailorder.route,
+                arguments = listOf(navArgument("id"){
+                    type = NavType.IntType
+                })
+            ){
+                val id = it.arguments?.getInt("id")?:-1L
+                OrderDetail( id = id as Int,
+                    navigateBack = {
+                    navController.navigateUp()
+                })
+            }
+
             composable(Screen.profile.route){
                 ProfileScreen(
                     navigateToChangeProfile = {
@@ -153,6 +168,9 @@ fun EyeCareApp (
                 CartScreen(
                     navigateToDetail = {
                             id -> navController.navigate(Screen.detail.createRoute(id))
+                    },
+                    navigateToOrder = {
+                        id->navController.navigate(Screen.detailorder.createRoute(id))
                     }
                 )
             }
@@ -168,7 +186,16 @@ fun EyeCareApp (
                 val ukuran = it.arguments?.getString("ukuran") ?: ""
                 val warna = it.arguments?.getString("warna") ?: ""
 
-                PaymentScreen(id = id as Int,ukuran=ukuran,warna=warna)
+                PaymentScreen(id = id as Int,
+                    ukuran=ukuran,
+                    warna=warna,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
+                    navigateToCart = {
+                        navController.navigate(Screen.cart.route)
+                    }
+                )
             }
             composable(Screen.changeprofile.route){
                 ChangeProfileScreen(

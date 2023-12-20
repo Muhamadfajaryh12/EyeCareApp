@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.eyecareapp.data.WishlistRepository
 import com.example.eyecareapp.ui.screen.Cart.CartViewModel
+import com.example.eyecareapp.ui.screen.Cart.Detail.OrderDetailViewModel
 import com.example.eyecareapp.ui.screen.Detail.DetailViewModel
 import com.example.eyecareapp.ui.screen.Home.HomeViewModel
 import com.example.eyecareapp.ui.screen.Login.LoginViewModel
@@ -37,6 +38,9 @@ class ViewModelFactory
             }
             else if(modelClass.isAssignableFrom(PaymentViewModel::class.java)){
                 return PaymentViewModel(wishlistRepository) as T
+            }
+            else if(modelClass.isAssignableFrom(OrderDetailViewModel::class.java)){
+                return OrderDetailViewModel(wishlistRepository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +36,9 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 fun ProfileContent (
     navigateToChangeProfile : () -> Unit,
     logout: ()-> Unit,
-    navigateToLogin: () -> Unit
+    navigateToLogin: () -> Unit,
+    email:String,
+    username:String
 ) {
     Box(modifier = Modifier.padding(10.dp)){
         Column(
@@ -59,34 +62,45 @@ fun ProfileContent (
                     .clip(CircleShape)
                 )
             Spacer(modifier = Modifier.padding(20.dp))
-            Box(modifier = Modifier
+            Column(modifier = Modifier
                 .width(300.dp)
-                .border(width = 1.dp, color = Color.Black),
             ){
                 Text(
-                    text = "Lorem Ipsum",
+                    text = "Username",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0XFF4682A9)
+                )
+                Text(
+                    text = username,
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold
                     ),
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(2.dp)
                 )
+                Spacer(modifier = Modifier.border(1.dp,Color.Gray).fillMaxWidth().height(1.dp))
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            Box(modifier = Modifier
+            Column(modifier = Modifier
                 .width(300.dp)
-                .border(width = 1.dp, color = Color.Black)
             ){
                 Text(
-                    text = "Lorem Ipsum",
+                    text = "Email",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0XFF4682A9)
+                )
+                Text(
+                    text = email,
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold
                     ),
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(2.dp)
                 )
+                Spacer(modifier = Modifier.border(1.dp,Color.Gray).fillMaxWidth().height(1.dp))
+
             }
-            Spacer(modifier = Modifier.padding(100.dp))
+            Spacer(modifier = Modifier.padding(80.dp))
             Row(
                modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -99,7 +113,10 @@ fun ProfileContent (
                     modifier = Modifier
                         .width(140.dp)
                         .height(40.dp),
-                    shape = RoundedCornerShape(5.dp)
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0XFF4682A9)
+                    )
                 ) {
                     Text(
                         text = "Logout",
@@ -115,7 +132,10 @@ fun ProfileContent (
                     modifier = Modifier
                         .width(140.dp)
                         .height(40.dp),
-                    shape = RoundedCornerShape(5.dp)
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Gray
+                    )
                 ) {
                     Text(
                         text = "Settings",
@@ -139,7 +159,9 @@ fun prevProfileContent () {
         ProfileContent(
             navigateToChangeProfile = {},
             logout = {},
-            navigateToLogin={}
+            navigateToLogin={},
+            email = "",
+            username = ""
         )
     }
 }

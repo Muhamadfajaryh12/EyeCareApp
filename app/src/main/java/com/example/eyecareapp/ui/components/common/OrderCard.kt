@@ -1,6 +1,7 @@
 package com.example.eyecareapp.ui.components.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,9 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 fun OrderCard(
     title:String,
     image:String,
-    status:String
+    status:String,
+    id:Int,
+    navigateToOrder : (Int) -> Unit
 ) {
     Card (
         elevation = CardDefaults.cardElevation(
@@ -37,7 +40,8 @@ fun OrderCard(
         modifier = Modifier
             .width(300.dp)
             .height(60.dp)
-            .padding(5.dp),
+            .padding(5.dp)
+            .clickable { navigateToOrder(id) },
         shape = RoundedCornerShape(5.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -101,7 +105,9 @@ fun prevOrderCard () {
         OrderCard(
             title = "",
             image = "",
-            status = ""
+            status = "",
+            id= 1,
+            navigateToOrder = {}
         )
     }
 }

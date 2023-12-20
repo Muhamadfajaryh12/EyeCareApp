@@ -128,7 +128,7 @@ fun LoginContent (
                                  is UiState.Loading->{}
                                 is UiState.Success->{
                                     if(user.data.status == "success"){
-                                        viewModel.saveSession(UserModel(user.data.token.toString()))
+                                        viewModel.saveSession(UserModel(user.data?.data?.id.toString(),user.data.token.toString()))
                                         navigateToHome()
                                     }
                                     else{

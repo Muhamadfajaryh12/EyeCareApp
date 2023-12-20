@@ -14,11 +14,13 @@ fun CartScreen(
             Injection.provideRepository(LocalContext.current),
         )
     ),
-    navigateToDetail:(Int) -> Unit
+    navigateToDetail:(Int) -> Unit,
+    navigateToOrder: (Int) -> Unit
 ) {
                 CartContent(
                     viewModel = viewModel,
-                    navigateToDetail = navigateToDetail
+                    navigateToDetail = navigateToDetail,
+                    navigateToOrder = navigateToOrder
                 )
 
 }

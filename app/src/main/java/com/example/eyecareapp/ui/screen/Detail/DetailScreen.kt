@@ -1,6 +1,7 @@
 package com.example.eyecareapp.ui.screen.Detail
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -9,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.eyecareapp.ViewModelFactory
@@ -43,6 +46,7 @@ fun DetailScreen (
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
         },
+        modifier = Modifier.background(Color.White)
     ) { contentPadding ->
         viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
             when (uiState) {

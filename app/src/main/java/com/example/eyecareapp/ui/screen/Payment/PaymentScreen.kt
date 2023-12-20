@@ -19,7 +19,9 @@ fun PaymentScreen (
         factory = ViewModelFactory(
             Injection.provideRepository(LocalContext.current),
         )
-    )
+    ),
+    navigateBack:()->Unit,
+    navigateToCart:()->Unit
 ) {
 
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let {
@@ -32,9 +34,13 @@ fun PaymentScreen (
                     id = id,
                     title = data.data.glass.title,
                     image = data.data.glass.image,
+                    type=data.data.glass.type,
+                    price = data.data.glass.price,
                     ukuran = ukuran,
                     warna = warna,
-                    viewModel = viewModel
+                    viewModel = viewModel,
+                    navigateBack = navigateBack,
+                    navigateToCart = navigateToCart
                 )
             }
             is UiState.Error ->{}

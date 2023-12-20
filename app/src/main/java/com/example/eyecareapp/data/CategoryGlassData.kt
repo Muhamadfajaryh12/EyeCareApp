@@ -7,15 +7,20 @@ object CategoryGlassData {
         CategoryGlass(
             id = 1,
             image = R.drawable.sunglasses,
-            title = "Low Vision"
+            title = "Default"
         ),
         CategoryGlass(
             id = 2,
             image = R.drawable.sunglasses,
-            title = "High Vision"
+            title = "Low Vision"
         ),
         CategoryGlass(
             id = 3,
+            image = R.drawable.sunglasses,
+            title = "High Vision"
+        ),
+        CategoryGlass(
+            id = 4,
             image = R.drawable.sunglasses,
             title = "Colour Blind"
         )

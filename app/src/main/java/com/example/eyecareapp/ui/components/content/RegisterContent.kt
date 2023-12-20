@@ -182,7 +182,6 @@ fun RegisterContent (
     register.registrationState.collectAsState().value.let { registrationState ->
         when (registrationState) {
             is UiState.Loading ->{
-
             }
             is UiState.Success -> {
                 if(registrationState.data.status == "success"){

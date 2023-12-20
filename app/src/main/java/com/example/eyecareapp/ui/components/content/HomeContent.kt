@@ -60,7 +60,7 @@ fun HomeContent(
                     )
                 )
                 LazyRow(
-                    modifier = Modifier.width(300.dp),
+                    modifier = Modifier.width(300.dp).padding(top = 5.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {

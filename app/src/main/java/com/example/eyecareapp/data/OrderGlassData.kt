@@ -25,5 +25,10 @@ data class OrderGlassData(
     @ColumnInfo(name="account")
     val account:String,
     @ColumnInfo(name="address")
-    val address:String
+    val address:String,
+    @ColumnInfo(name="type")
+    val type:String,
+    @ColumnInfo(name="price")
+    val price:String
 )
+
