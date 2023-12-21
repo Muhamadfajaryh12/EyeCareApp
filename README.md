@@ -6,6 +6,15 @@
 </p>
 
 <b>Team Member</b>
+<table>
+  <theader>
+    <th>No</th>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Learning Path</th>
+    <th>University</th>
+  </theader>
+</table>
 - Muhamad Fajar Yudhistira Herjanto (A314BSY2532) MD
 - Hilmy Syafiq Arrosyid (A007BSY2402) MD
 - Wahyu Pinanda Ginting (C269BSY4350) CC
