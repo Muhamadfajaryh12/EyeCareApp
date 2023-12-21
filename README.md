@@ -1,4 +1,4 @@
-# EyeCareApp
+# Bangkit Capstone - CH PS320 - EyeCare App
 
 # CH-PS320
 
@@ -13,5 +13,5 @@
 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/71868613/173239047-12292f83-eab9-4f45-becd-0bd6e9cb3989.gif"><br>
+  <img src="https://storage.googleapis.com/eyecare_models/general_image_eyecare/Eye%20Care-modified.png"><br>
 </p>
