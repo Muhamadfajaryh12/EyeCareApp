@@ -11,3 +11,7 @@
 - Bethari Ayudya Irianti (M196BSX0831) ML
 
 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/71868613/173239047-12292f83-eab9-4f45-becd-0bd6e9cb3989.gif"><br>
+</p>
