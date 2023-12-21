@@ -18,22 +18,22 @@ class WishlistRepository private constructor(
     private val apiService : ApiService,
     private val userPreferences: UserPreferences
     ){
-    fun getAllGlasses(): List<Glass> {
+    fun getAllGlasses(): List<Glasses> {
         return GlassData.glass
     }
 
-    fun getGlassById(id:Int): Glass {
+    fun getGlassById(id:Int): Glasses {
         return GlassData.glass.first{
             it.id == id
         }
     }
 
-    fun searchFood(query:String):List<Glass>{
+    fun searchFood(query:String):List<Glasses>{
         return GlassData.glass.filter {
             it.title.contains(query,ignoreCase = true)
         }
     }
-    fun getGlassByCategory(type: String): List<Glass> {
+    fun getGlassByCategory(type: String): List<Glasses> {
         return if (type == "Default") {
             GlassData.glass
         } else {
@@ -61,7 +61,9 @@ class WishlistRepository private constructor(
     suspend fun register( name: String, email:String, password: String, password_confirmation:String, tc:Boolean): ResponseRegister {
             return apiService.register(name, email, password,password_confirmation,tc)
     }
-
+//    suspend fun login(  email:String, password: String): ResponseLogin {
+//        return apiService.login(email, password)
+//    }
     fun login(email:String,password: String)= liveData {
         emit(UiState.Loading)
         try{
@@ -74,12 +76,24 @@ class WishlistRepository private constructor(
         }
     }
 
+    fun predict(inputData:List<String>) = liveData{
+        emit(UiState.Loading)
+        try{
+            val response = apiService.predict(inputData)
+            emit(UiState.Success(response))
+        } catch(e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val responseError = Gson().fromJson(errorBody, ResponseError::class.java)
+            emit(UiState.Error(responseError.message.toString()))
+        }
+    }
     suspend fun profile(id:String) : ResponseProfile{
         return apiService.profile((id))
     }
     suspend fun changePassword(password: String, password_confirmation: String) : ResponseRegister{
         return apiService.changepassword(password,password_confirmation)
     }
+
     suspend fun saveSession(user: UserModel) {
         userPreferences.saveSession(user)
     }
@@ -92,8 +106,14 @@ class WishlistRepository private constructor(
         userPreferences.logout()
     }
 
-    suspend fun insertOrder(orderGlassData: OrderGlassData){
-        return glassDao.addOrder(orderGlassData)
+    fun insertOrder(orderGlassData: OrderGlassData) = liveData{
+        emit(UiState.Loading)
+        try{
+            glassDao.addOrder(orderGlassData)
+            emit(UiState.Success("Success"))
+        }catch(e: HttpException){
+            emit(UiState.Error(e.message.toString()))
+        }
     }
     fun getAllOrder():Flow<List<OrderGlassData>>{
         return glassDao.getAllOrder()
@@ -102,6 +122,7 @@ class WishlistRepository private constructor(
     fun getOrderById(id:Int):Flow<OrderGlassData>{
         return glassDao.getOrderById(id)
     }
+
 
     companion object{
         @Volatile

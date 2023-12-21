@@ -70,25 +70,6 @@ fun TestContent (
             )
         }
         Spacer(modifier = Modifier.padding(10.dp))
-        Button(
-            onClick = { navigateToHypomiaTest() },
-            modifier = Modifier
-                .width(300.dp)
-                .height(50.dp),
-            shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0XFF4682A9),
-                contentColor = Color.White
-            )
-        ) {
-            Text(
-                text = stringResource(id = R.string.test_vision),
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            )
-        }
     }
 }
 

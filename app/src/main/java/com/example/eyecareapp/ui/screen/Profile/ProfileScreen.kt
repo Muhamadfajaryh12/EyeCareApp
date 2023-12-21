@@ -7,7 +7,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.eyecareapp.ViewModelFactory
 import com.example.eyecareapp.data.preference.UserPreferences
 import com.example.eyecareapp.data.preference.dataStore
-import com.example.eyecareapp.di.Injection
 import com.example.eyecareapp.ui.common.UiState
 import com.example.eyecareapp.ui.components.content.ProfileContent
 import kotlinx.coroutines.flow.first
@@ -15,13 +14,12 @@ import kotlinx.coroutines.runBlocking
 
 @Composable
 fun ProfileScreen (
-    navigateToChangeProfile : () -> Unit,
+    navigateToChangeProfile: () -> Unit,
     viewModel: ProfileViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository(LocalContext.current)
-        )
+        factory = ViewModelFactory.getInstance(LocalContext.current)
+
     ),
-    navigateToLogin:()->Unit
+    navigateToLogin:()->Unit,
 ) {
     val context = LocalContext.current
     val pref = UserPreferences.getInstance(context.dataStore)

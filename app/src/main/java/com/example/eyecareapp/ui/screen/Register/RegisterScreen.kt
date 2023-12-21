@@ -11,7 +11,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.eyecareapp.ViewModelFactory
-import com.example.eyecareapp.di.Injection
 import com.example.eyecareapp.ui.components.content.RegisterContent
 import kotlinx.coroutines.launch
 
@@ -20,9 +19,8 @@ import kotlinx.coroutines.launch
 fun RegisterScreen (
     navigateToLogin : () -> Unit,
     viewModel: RegisterViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository(LocalContext.current)
-        )
+        factory = ViewModelFactory.getInstance(LocalContext.current)
+
     ),
 ){
     val scope = rememberCoroutineScope()

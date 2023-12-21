@@ -96,7 +96,7 @@ fun SplashContent(onTimeout: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(360.dp)
+                .height(380.dp)
                 .align(Alignment.BottomCenter),
         ) {
             Image(

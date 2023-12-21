@@ -9,10 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.eyecareapp.ViewModelFactory
-import com.example.eyecareapp.di.Injection
 import com.example.eyecareapp.ui.components.content.LoginContent
 import kotlinx.coroutines.launch
 
@@ -21,12 +19,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen (
-    navigateToRegister : () -> Unit,
+    navigateToRegister: () -> Unit,
     viewModel: LoginViewModel = viewModel(
-        factory = ViewModelFactory(
-        Injection.provideRepository(LocalContext.current),
-        )
+        factory = ViewModelFactory.getInstance(LocalContext.current)
     ),
+    viewModelFactory: () -> Unit = { ViewModelFactory.resetInstance() },
     navigateToHome:() -> Unit,
     ) {
     val scope = rememberCoroutineScope()
@@ -39,11 +36,6 @@ fun LoginScreen (
             )
         }
     }
-    viewModel.getSession().observe(LocalLifecycleOwner.current){
-        user-> if(user.isLogin){
-            navigateToHome()
-         }
-    }
     Scaffold(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
@@ -53,7 +45,8 @@ fun LoginScreen (
             navigateToRegister,
             viewModel = viewModel,
             navigateToHome = navigateToHome,
-            showSnackBar = {message-> showSnackbar(message)}
+            showSnackBar = { message-> showSnackbar(message)},
+            factory = viewModelFactory
         )
     }
 }

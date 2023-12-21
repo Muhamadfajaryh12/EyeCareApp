@@ -1,6 +1,7 @@
 package com.example.eyecareapp.data.retrofit
 
 import com.example.eyecareapp.data.response.ResponseLogin
+import com.example.eyecareapp.data.response.ResponsePredict
 import com.example.eyecareapp.data.response.ResponseProfile
 import com.example.eyecareapp.data.response.ResponseRegister
 import retrofit2.http.Field
@@ -36,4 +37,10 @@ interface ApiService {
 
     @GET("user/{id}")
     suspend fun profile(@Path("id") id:String):ResponseProfile
+
+    @FormUrlEncoded
+    @POST("user/quizcontroller")
+    suspend fun predict(
+        @Field("inputData") inputData:List<String>
+    ):ResponsePredict
 }

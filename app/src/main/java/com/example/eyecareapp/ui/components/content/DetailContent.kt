@@ -40,6 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.eyecareapp.data.Glass
+import com.example.eyecareapp.data.Ukuran
+import com.example.eyecareapp.data.Warna
 
 
 @Composable
@@ -54,13 +56,16 @@ fun DetailContent(
     image:String,
     type:String,
     price:String,
+    listUkuran:List<Ukuran>,
+    listWarna:List<Warna>,
     showSnackbar:(String)->Unit
 ) {
     var selectedWarna by remember { mutableStateOf<Warna?>(null) }
     var selectedUkuran by remember { mutableStateOf<Ukuran?>(null) }
     Column(modifier = Modifier
         .padding(10.dp)
-        .fillMaxSize(),
+        .fillMaxSize()
+        .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
         ) {
         Row(
@@ -107,7 +112,7 @@ fun DetailContent(
                 )
             )
             Text(
-                text = "Pilih Warna",
+                text = "Choose Color",
                 style = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
@@ -116,16 +121,16 @@ fun DetailContent(
            LazyRow(
 
            ){
-               items(optionWarnaDummy){
+               items(listWarna){
                    options ->
-                   boxSelected(Option = options.name,
+                   boxSelected(Option = options.warna,
                    isSelected = options == selectedWarna,
                    onClick = {   selectedWarna = if(selectedWarna == options) null else options}
                    )
                }
            }
             Text(
-                text = "Pilih Ukuran",
+                text = "Choose Size",
                 style = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
@@ -134,7 +139,7 @@ fun DetailContent(
             LazyRow(
 
             ){
-                items(optionUkuranDummy){
+                items(listUkuran){
                         options ->
                     boxSelected(
                         Option = options.ukuran,
@@ -212,8 +217,8 @@ fun DetailContent(
         Spacer(modifier = Modifier.padding(5.dp))
         Button(
             onClick = {
-                if(selectedUkuran?.ukuran != null && selectedWarna?.name !=null){
-                    navigateToPayment(id,selectedUkuran?.ukuran.toString(),selectedWarna?.name.toString())
+                if(selectedUkuran?.ukuran != null && selectedWarna?.warna !=null){
+                    navigateToPayment(id,selectedUkuran?.ukuran.toString(),selectedWarna?.warna.toString())
                 }
                          },
             modifier = Modifier.width(300.dp)
@@ -249,14 +254,6 @@ fun boxSelected (
         )
     }
 }
-data class Warna(val name:String)
-data class Ukuran(val ukuran:String)
-val optionWarnaDummy = listOf(
-    Warna("Biru"),Warna("Merah"),Warna("Hitam")
-)
-val optionUkuranDummy = listOf(
-    Ukuran("-0,50"),Ukuran("-0,75"),Ukuran("-1.00")
-)
 
 //@Preview (showBackground = true)
 //@Composable

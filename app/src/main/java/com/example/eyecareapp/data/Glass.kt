@@ -17,5 +17,17 @@ data class Glass(
     @field:ColumnInfo(name="price")
     val price:String,
     @field:ColumnInfo(name="type")
-    val type:String
+    val type:String,
 )
+data class Glasses(
+    val id:Int,
+    val title:String,
+    val image:String,
+    val price:String,
+    val type:String,
+    val listWarna:List<Warna>,
+    val listUkuran:List<Ukuran>
+)
+
+data class Warna(val warna : String)
+data class Ukuran(val ukuran :String)

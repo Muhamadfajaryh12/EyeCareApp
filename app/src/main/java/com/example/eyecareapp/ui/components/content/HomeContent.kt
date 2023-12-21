@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
 import com.example.eyecareapp.data.CategoryGlassData
-import com.example.eyecareapp.data.Glass
 import com.example.eyecareapp.data.GlassData
+import com.example.eyecareapp.data.Glasses
 import com.example.eyecareapp.ui.components.common.Banner
 import com.example.eyecareapp.ui.components.common.CategoryCard
 import com.example.eyecareapp.ui.components.common.GlassesCard
@@ -39,14 +39,14 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 @Composable
 fun HomeContent(
     navigateToDetail:(Int) -> Unit,
-    glass:List<Glass>,
+    glass: List<Glasses>,
     query: String,
     onQueryChange:(String)-> Unit,
     Category:(String)->Unit
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize().padding(10.dp)
+        modifier = Modifier.fillMaxSize().padding(10.dp).background(Color.White)
     ) {
         Banner()
         Spacer(modifier = Modifier.padding(5.dp))
@@ -123,8 +123,7 @@ fun prevHomeContent(){
             navigateToDetail = {},
             query = "",
             onQueryChange = {},
-            glass = GlassData.glass,
-            Category = {}
-        )
+            glass = GlassData.glass
+        ) {}
     }
 }

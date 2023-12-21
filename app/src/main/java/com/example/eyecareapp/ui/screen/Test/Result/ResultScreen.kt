@@ -5,8 +5,11 @@ import com.example.eyecareapp.ui.components.content.ResultContent
 
 @Composable
 fun ResultScreen (
-    navigateToDetail : () -> Unit
+    id:String,
+    navigateBack:()->Unit,
+    navigateToDetail : (Int) -> Unit
 ) {
-    ResultContent(navigateToDetail)
+
+    ResultContent(navigateToDetail, title = id, navigateBack = navigateBack)
 
 }

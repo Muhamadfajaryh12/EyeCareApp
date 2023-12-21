@@ -6,16 +6,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.eyecareapp.ViewModelFactory
-import com.example.eyecareapp.di.Injection
 import com.example.eyecareapp.ui.common.UiState
 import com.example.eyecareapp.ui.components.content.DetailOrderContent
 
 @Composable
 fun  OrderDetail (
     viewModel: OrderDetailViewModel  = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository(LocalContext.current),
-        )
+        factory = ViewModelFactory.getInstance(LocalContext.current)
     ),
     id:Int,
     navigateBack:()->Unit

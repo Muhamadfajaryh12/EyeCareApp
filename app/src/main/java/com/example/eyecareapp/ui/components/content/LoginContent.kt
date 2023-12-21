@@ -47,10 +47,11 @@ import com.example.eyecareapp.ui.screen.Login.LoginViewModel
 
 @Composable
 fun LoginContent (
-    navigateToRegister : () -> Unit,
+    navigateToRegister: () -> Unit,
     navigateToHome:()->Unit,
     viewModel:LoginViewModel,
-    showSnackBar:(String)->Unit
+    showSnackBar:(String)->Unit,
+    factory : ()->Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -130,10 +131,10 @@ fun LoginContent (
                                     if(user.data.status == "success"){
                                         viewModel.saveSession(UserModel(user.data?.data?.id.toString(),user.data.token.toString()))
                                         navigateToHome()
+                                        factory()
                                     }
                                     else{
                                         showSnackBar(user.data.message.toString())
-
                                     }
                                 }
                                  is UiState.Error->{

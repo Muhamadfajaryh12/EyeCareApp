@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.eyecareapp.ViewModelFactory
-import com.example.eyecareapp.di.Injection
 import com.example.eyecareapp.ui.common.UiState
 import com.example.eyecareapp.ui.components.content.HomeContent
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
@@ -16,12 +16,16 @@ import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 fun HomeScreen (
 navigateToDetail:(Int) -> Unit,
 viewModel: HomeViewModel = viewModel(
-factory = ViewModelFactory(
-    Injection.provideRepository(LocalContext.current),
-    )
-  )
+    factory = ViewModelFactory.getInstance(LocalContext.current)
+  ),
+navigateToLogin:()->Unit
 ){
 
+    viewModel.getSession().observe(LocalLifecycleOwner.current){
+            user-> if(!user.isLogin){
+             navigateToLogin()
+        }
+    }
         val query by viewModel.query
         viewModel.glass.collectAsState(initial = UiState.Loading).value.let{
             uiState -> when (uiState){
@@ -48,6 +52,7 @@ fun prevHomeScreen(){
     EyeCareAppTheme {
         HomeScreen(
             navigateToDetail = {},
+            navigateToLogin={}
         )
     }
 }

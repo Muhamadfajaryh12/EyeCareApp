@@ -1,5 +1,6 @@
 package com.example.eyecareapp.ui.components.content
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,7 +43,9 @@ fun DetailOrderContent (
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(10.dp)
+            .background(Color.White)
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(

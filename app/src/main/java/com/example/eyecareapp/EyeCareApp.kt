@@ -53,6 +53,7 @@ fun EyeCareApp (
         "Register" -> false
         "Login"-> false
         "Order/{id}"->false
+        "Test/BlindColour/{id}"-> false
         else -> true
     }
 
@@ -67,18 +68,17 @@ fun EyeCareApp (
         innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.login.route,
+            startDestination = Screen.home.route,
             modifier = Modifier.padding(innerPadding)
         ){
             composable(Screen.login.route){
                 LoginScreen(
                     navigateToRegister = {
                         navController.navigate(Screen.register.route)
-                    },
-                    navigateToHome = {
-                        navController.navigate(Screen.home.route)
                     }
-                )
+                ) {
+                    navController.navigate(Screen.home.route)
+                }
             }
             composable(Screen.register.route){
                 RegisterScreen(
@@ -91,6 +91,9 @@ fun EyeCareApp (
                 HomeScreen(
                     navigateToDetail = {
                         id -> navController.navigate(Screen.detail.createRoute(id))
+                    },
+                    navigateToLogin = {
+                        navController.navigate(Screen.login.route)
                     }
                 )
             }
@@ -113,16 +116,26 @@ fun EyeCareApp (
             }
             composable(Screen.blindcolour.route){
                 ColourBlindScreen(
-                    navigateToResult = {
-                        navController.navigate(Screen.result.route)
+                    navigateToResult = { id ->
+                        navController.navigate(Screen.result.createRoute(id))
+                    },
+                    navigateBack = {
+                        navController.navigateUp()
                     }
                 )
             }
-            composable(Screen.result.route){
-                ResultScreen(
-                    navigateToDetail = {
-                        navController.navigate(Screen.detail.route)
-                    }
+            composable(
+                route = Screen.result.route,
+                arguments = listOf(
+                    navArgument("id"){type = NavType.StringType},
+                )
+            ){
+                val id = it.arguments?.getString("id")
+                ResultScreen(id as String,
+                    navigateToDetail = {id->
+                        navController.navigate(Screen.detail.createRoute(id))
+                    },
+                    navigateBack = {navController.navigate(Screen.home.route)}
                 )
             }
             composable(
@@ -193,7 +206,7 @@ fun EyeCareApp (
                         navController.navigateUp()
                     },
                     navigateToCart = {
-                        navController.navigate(Screen.cart.route)
+                        navController.navigate(Screen.home.route)
                     }
                 )
             }

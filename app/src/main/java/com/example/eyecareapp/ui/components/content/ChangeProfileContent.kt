@@ -2,6 +2,7 @@ package com.example.eyecareapp.ui.components.content
 
 import Alert
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,6 +55,7 @@ fun ChangeProfileContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
+                .background(Color.White)
         ) {
             Row(
                 horizontalArrangement = Arrangement.Start,
@@ -83,22 +85,7 @@ fun ChangeProfileContent(
                     .height(120.dp)
                     .clip(CircleShape)
             )
-            Spacer(modifier = Modifier.padding(5.dp))
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .width(100.dp),
-                shape = RoundedCornerShape(5.dp)
-                ) {
-                Text(
-                    text="File",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    )
-                )
-            }
-            Spacer(modifier = Modifier.padding(5.dp))
+            Spacer(modifier = Modifier.padding(15.dp))
             InputPassword(
                 icon = Icons.Default.Lock,
                 label = "Password",
@@ -116,16 +103,16 @@ fun ChangeProfileContent(
             Button(
                 onClick = {
                     viewModel.changePassword(password, password_confirmation)
-                    when (viewModel.uiState.value) {
-
-                        is UiState.Loading -> {}
-                        is UiState.Success->{
-                            val data = (viewModel.uiState.value as UiState.Success).data
-                        }
-                        is UiState.Error->{
-
-                        }
-                    }
+//                    when (viewModel.uiState.value) {
+//
+//                        is UiState.Loading -> {}
+//                        is UiState.Success->{
+//                            val data = (viewModel.uiState.value as UiState.Success).data
+//                        }
+//                        is UiState.Error->{
+//
+//                        }
+//                    }
                 },
                 modifier = Modifier
                     .width(140.dp),
@@ -136,7 +123,9 @@ fun ChangeProfileContent(
             }
         }
     }
-    viewModel.uiState.collectAsState().value.let {
+    viewModel.uiState.collectAsState(
+        initial = UiState.Loading
+    ).value.let {
         state->when(state){
             is UiState.Loading->{}
             is UiState.Success->{
@@ -144,7 +133,6 @@ fun ChangeProfileContent(
                     Alert(title = "Success", message =state.data?.message.toString() , icon =Icons.Default.Check , tint = Color.Green )
                 }else{
                     Alert(title = "Failed", message =state.data?.message.toString() , icon =Icons.Default.Warning , tint = Color.Red )
-
                 }
             }
             is UiState.Error->{}

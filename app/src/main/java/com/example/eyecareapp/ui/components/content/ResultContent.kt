@@ -1,6 +1,5 @@
 package com.example.eyecareapp.ui.components.content
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,42 +15,56 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.eyecareapp.R
 import com.example.eyecareapp.data.GlassData
 import com.example.eyecareapp.ui.components.common.GlassesCard
 import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 @Composable
 fun ResultContent(
-    navigateToDetail : () -> Unit
+    navigateToDetail : (Int) -> Unit,
+    title : String,
+    navigateBack: ()->Unit
 ) {
     Column (
-        modifier = Modifier.background(Color(0xFF4682A9)).fillMaxSize(),
+        modifier = Modifier
+            .background(Color(0xFF4682A9))
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Row {
-            Text(
-                text = "Result",
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
+    ) { Row(
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ){
+        Icon(
+            imageVector = Icons.Default.ArrowBack,
+            contentDescription ="Back",
+            modifier = Modifier
+                .clickable { navigateBack() }
+                .padding( end = 5.dp)
+        )
+        Text(
+            text = "Result",
+            style = TextStyle(
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 20.sp
             )
-        }
+        )
+    }
         Card  (
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
@@ -61,8 +74,12 @@ fun ResultContent(
                 .width(300.dp)
         ){
             Column(
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .padding(10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "Test Result",
@@ -71,26 +88,13 @@ fun ResultContent(
                         fontWeight = FontWeight.Bold
                     )
                 )
-                Image(
-                    painter = painterResource(id = R.drawable.sunglasses),
-                    contentDescription ="" ,
-                    modifier = Modifier
-                        .width(50.dp)
-                        .height(50.dp)
-                    )
                 Text(
-                    text = "Rabun Dekat",
+                    text = title,
                     style = TextStyle(
-                        fontSize = 12.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold
-                    )
-                )
-                Text(
-                    text = " +0.50",
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    ),
+                    modifier = Modifier.padding(top=10.dp)
                 )
             }
         }
@@ -103,7 +107,7 @@ fun ResultContent(
             shape = RoundedCornerShape(10.dp,10.dp)
         ){
             Column(modifier = Modifier.padding(5.dp)){
-                Text(text = "Recommendation",
+                Text(text = "Glasses List",
                     style= TextStyle(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
@@ -122,7 +126,7 @@ fun ResultContent(
                             GlassesCard(title = glass.title, image = glass.image,
                                 price = glass.price, type = glass.type,
                                 modifier = Modifier
-                                    .clickable { navigateToDetail() }
+                                    .clickable { navigateToDetail(glass.id) }
                             )
                         }
                     }
@@ -136,7 +140,9 @@ fun ResultContent(
 fun prevResultContent(){
     EyeCareAppTheme {
         ResultContent(
-            navigateToDetail = {}
+            navigateToDetail = {},
+            title = "",
+            navigateBack = {}
         )
     }
 }

@@ -24,9 +24,5 @@ class PaymentViewModel(private val repository: WishlistRepository): ViewModel() 
             }
         }
     }
-    fun addOrder(orderGlassData: OrderGlassData){
-        viewModelScope.launch {
-           repository.insertOrder(orderGlassData)
-       }
-   }
+    fun addOrder(orderGlassData: OrderGlassData)=repository.insertOrder(orderGlassData)
 }

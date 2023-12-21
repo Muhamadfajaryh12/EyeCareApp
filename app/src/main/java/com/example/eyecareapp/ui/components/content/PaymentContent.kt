@@ -1,5 +1,6 @@
 package com.example.eyecareapp.ui.components.content
 
+import InputNumber
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,8 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
 import com.example.eyecareapp.data.OrderGlassData
+import com.example.eyecareapp.ui.common.UiState
 import com.example.eyecareapp.ui.components.common.InputAddress
-import com.example.eyecareapp.ui.components.common.InputWithIcon
 import com.example.eyecareapp.ui.screen.Payment.PaymentViewModel
 
 @Composable
@@ -60,10 +62,12 @@ fun PaymentContent(
     var selectedBank by remember { mutableStateOf<BankInfo?>(null) }
     var accountNumber by remember { mutableStateOf("") }
     var address by remember{ mutableStateOf("") }
+    val lifecycleOwner = LocalLifecycleOwner.current
     Column(
         modifier = Modifier
             .padding(10.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -103,7 +107,7 @@ fun PaymentContent(
         }
         Spacer(modifier = Modifier.padding(5.dp))
 
-        InputWithIcon(
+        InputNumber(
             icon = Icons.Default.Info,
             placeholder = "Account number",
             label = "Account number" ,
@@ -119,7 +123,6 @@ fun PaymentContent(
 
         Button(
             onClick ={
-                if(accountNumber != null){
                                 viewModel.addOrder(
                                         OrderGlassData(
                                         id,
@@ -134,11 +137,18 @@ fun PaymentContent(
                                         type,
                                         price
                                         )
-                                )
-                        navigateToCart()
-                            }
-
-                                 },
+                                ).observe(lifecycleOwner){
+                                    order-> when(order){
+                                        is UiState.Loading->{}
+                                        is UiState.Success->{
+                                            if(order.data == "Success"){
+                                                navigateToCart()
+                                            }
+                                        }
+                                        is UiState.Error->{}
+                                    }
+                                }
+                     },
                     modifier= Modifier.width(300.dp)
         ) {
             Text(text = "Confirm")
@@ -186,7 +196,7 @@ fun RowPayment(
         modifier = Modifier
             .width(300.dp)
             .shadow(elevation = 1.dp)
-            .height(50.dp)
+            .height(45.dp)
             .padding(5.dp)
             .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,

@@ -1,6 +1,6 @@
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,29 +14,47 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.eyecareapp.R
-import com.example.eyecareapp.ui.theme.EyeCareAppTheme
+import coil.compose.AsyncImage
+import com.example.eyecareapp.data.Option
+import com.example.eyecareapp.data.Quiz
+import com.example.eyecareapp.ui.common.UiState
+import com.example.eyecareapp.ui.screen.Test.ColourBlind.ColourBlindViewModel
 
 @Composable
 fun ColourBlindContent(
-    navigateToResult : ()->Unit
+    navigateToResult : (String)->Unit,
+    onNextClick:()->Unit,
+    quiz: Quiz,
+    navigateBack : () -> Unit,
+    viewModel : ColourBlindViewModel
 ) {
+    var selectedOption by remember { mutableStateOf(emptyList<String>()) }
+    var selected by remember { mutableStateOf<Option?>(null) }
+    val LifecycleOwner = LocalLifecycleOwner.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -47,32 +65,29 @@ fun ColourBlindContent(
                 .fillMaxSize()
         ) {
             Row(
+                horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
+                modifier = Modifier.fillMaxWidth()
+            ){
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
+                    contentDescription ="Back",
                     modifier = Modifier
-                        .clickable { /* Handle back action */ }
+                        .clickable { navigateBack() }
+                        .padding(end = 5.dp)
                 )
                 Text(
                     text = "Colour Blind Test",
                     style = TextStyle(
-                        fontSize = 20.sp,
-                        color = Color.Black
-                    ),
-                    modifier = Modifier.padding(8.dp)
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp
+                    )
                 )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
-            Image(
-                painter = painterResource(id = R.drawable.colourblindtest),
+            AsyncImage(
+                model = quiz.image,
                 contentDescription = "Colour Blind Test Image",
                 modifier = Modifier
                     .height(200.dp)
@@ -80,69 +95,108 @@ fun ColourBlindContent(
                     .background(Color.White)
             )
 
-            Spacer(modifier = Modifier.padding(10.dp))
             Column(
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFF4682A9), // Warna biru dongker
-                shape = RoundedCornerShape(5.dp) // Rounded corners
-            )
-                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 LazyColumn(
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFF4682A9),
+                            shape = RoundedCornerShape(5.dp)
+                        )
+                        .padding(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    items(answerOptions) { option ->
-                        AnswerOptionItem(option = option)
+                    items(quiz.option) { option ->
+                        AnswerOptionItem(
+                            option = option.opsi,
+                            isSelected = selected == option,
+                            onOptionSelected = {
+                                selectedOption = selectedOption + option.value
+                                selected =  if(selected == option) null else option
+                            }
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.padding(10.dp))
-                Button(onClick = { navigateToResult()},
-                    modifier=Modifier
-                        .width(300.dp)
-                        .clip(shape= RoundedCornerShape(5.dp))
+            if(quiz.id == 10){
+                Button(
+                    onClick = {
+                        viewModel.predict(selectedOption).observe(LifecycleOwner){
+                                user-> when(user){
+                            is UiState.Loading->{}
+                            is UiState.Success->{
+                                if(user.data.success == true){
+                                    navigateToResult(user.data.predict.toString())
+                                }
+                            }
+                            is UiState.Error->{
+                            }
+                        }
+                        }
+                    },modifier= Modifier.width(300.dp)
                 ) {
-                    Text(text = "Selesai")
+                    Text(text = "Send")
                 }
+            }else{
+                Button(
+                    onClick = {
+                        if(selected?.opsi != null){
+                            onNextClick()
+                        }
+                    },modifier= Modifier.width(300.dp)
+                ) {
+                    Text(text = "Next")
+                    Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null)
+                }
+            }
             }
         }
     }
 }
 
 @Composable
-fun AnswerOptionItem(option: String) {
-    Spacer(modifier = Modifier.padding(10.dp))
-    Box(
+fun AnswerOptionItem(
+    option: String,
+    isSelected:Boolean,
+    onOptionSelected : ()->Unit) {
+    Spacer(modifier = Modifier.padding(5.dp))
+    Row(
         modifier = Modifier
             .width(300.dp)
-            .clip(shape = RoundedCornerShape(5.dp))
-            .background(Color.White)
+            .shadow(elevation = 1.dp)
+            .height(50.dp)
             .padding(5.dp)
+            .background(Color.White)
+            .clickable { onOptionSelected() },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
     ) {
-        Column(
+        Spacer(modifier = Modifier.padding(start=10.dp))
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = option,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-        }
+                .clip(CircleShape)
+                .border(1.dp, Color.Black, CircleShape)
+                .width(20.dp)
+                .height(20.dp)
+                .background(if (isSelected) Color(0XFF4682A9) else Color.White)
+        )
+        Text(text = option,modifier = Modifier.padding(start=10.dp))
     }
+    Spacer(modifier = Modifier.padding(5.dp))
 }
 
-val answerOptions = listOf("Option 1", "Option 2", "Option 3")
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewColourBlindTestScreen() {
-    EyeCareAppTheme {
-        ColourBlindContent(navigateToResult = {})
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewColourBlindTestScreen() {
+//    EyeCareAppTheme {
+//        ColourBlindContent(
+//            navigateToResult = {},
+//            onNextClick = {},
+//            answerOptions = Data.data.forEach{
+//                test -> test.option
+//            }
+//        )
+//    }
+//}

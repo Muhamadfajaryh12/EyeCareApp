@@ -1,6 +1,7 @@
 package com.example.eyecareapp.ui.components.content
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,11 +26,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.eyecareapp.R
-import com.example.eyecareapp.ui.theme.EyeCareAppTheme
 
 
 @Composable
@@ -38,13 +37,15 @@ fun ProfileContent (
     logout: ()-> Unit,
     navigateToLogin: () -> Unit,
     email:String,
-    username:String
+    username:String,
+
 ) {
     Box(modifier = Modifier.padding(10.dp)){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
+                .background(Color.White)
         ) {
             Text(
                 text="Profile",
@@ -152,16 +153,16 @@ fun ProfileContent (
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun prevProfileContent () {
-    EyeCareAppTheme {
-        ProfileContent(
-            navigateToChangeProfile = {},
-            logout = {},
-            navigateToLogin={},
-            email = "",
-            username = ""
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun prevProfileContent () {
+//    EyeCareAppTheme {
+//        ProfileContent(
+//            navigateToChangeProfile = {},
+//            logout = {},
+//            navigateToLogin={},
+//            email = "",
+//            username = ""
+//        )
+//    }
+//}
