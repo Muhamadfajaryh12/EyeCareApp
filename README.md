@@ -67,5 +67,14 @@
   </tbody>
 </table>
 
+## Tech Stack
+
+**Mobile Development:** Kotlin, Jetpack Compose
+
+**Cloud Computing:** Node, Express, MongoDB, Google Cloud Platform
+
+**Machine Learning:** Python, TensorFlow
+
+
 
 
