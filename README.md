@@ -5,7 +5,7 @@
   <img src="https://storage.googleapis.com/eyecare_models/general_image_eyecare/Eye%20Care-modified.png"><br>
 </p>
 
-<b>Team Member</b>
+## Team Member
 <table>
   <theader>
     <th>No</th>
