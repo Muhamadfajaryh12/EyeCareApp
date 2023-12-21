@@ -68,6 +68,7 @@ fun DetailScreen (
                         checked = wishlist,
                         listUkuran = data.listUkuran,
                         listWarna = data.listWarna,
+                        description = data.description,
                         showSnackbar = {message -> showSnackbar(message)}
                     )
                 }

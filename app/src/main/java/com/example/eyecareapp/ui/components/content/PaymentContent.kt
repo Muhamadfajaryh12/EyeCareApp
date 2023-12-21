@@ -57,8 +57,9 @@ fun PaymentContent(
     price:String,
     viewModel: PaymentViewModel,
     navigateBack:()->Unit,
-    navigateToCart:()->Unit
-) {
+    navigateToCart:()->Unit,
+    showSnackBar:(String)->Unit,
+    ) {
     var selectedBank by remember { mutableStateOf<BankInfo?>(null) }
     var accountNumber by remember { mutableStateOf("") }
     var address by remember{ mutableStateOf("") }
@@ -91,18 +92,18 @@ fun PaymentContent(
             )
         }
 
-        PaymentCategory("Transaksi Bank", dummyBank, selectedBank) { bank ->
+        PaymentCategory("Bank Transactions", dummyBank, selectedBank) { bank ->
             selectedBank = bank
         }
         Spacer(modifier = Modifier.padding(5.dp))
 
-        PaymentCategory("Transaksi Virtual", dummyMBank, selectedBank) { bank ->
+        PaymentCategory("Virtual Transactions", dummyMBank, selectedBank) { bank ->
             selectedBank = bank
         }
 
         Spacer(modifier = Modifier.padding(5.dp))
 
-        PaymentCategory("Transaksi Tunai", dummyCOD, selectedBank) { bank ->
+        PaymentCategory("Cash Transactions", dummyCOD, selectedBank) { bank ->
             selectedBank = bank
         }
         Spacer(modifier = Modifier.padding(5.dp))
@@ -123,6 +124,7 @@ fun PaymentContent(
 
         Button(
             onClick ={
+                if(address != ""){
                                 viewModel.addOrder(
                                         OrderGlassData(
                                         id,
@@ -131,7 +133,7 @@ fun PaymentContent(
                                         ukuran,
                                         warna,
                                         selectedBank?.name.toString(),
-                                        "Dalam Pengiriman",
+                                        "In Delivery",
                                         accountNumber,
                                         address,
                                         type,
@@ -148,6 +150,9 @@ fun PaymentContent(
                                         is UiState.Error->{}
                                     }
                                 }
+                           }else{
+                               showSnackBar("Address required")
+                }
                      },
                     modifier= Modifier.width(300.dp)
         ) {

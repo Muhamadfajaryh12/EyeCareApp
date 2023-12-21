@@ -26,7 +26,8 @@ data class Glasses(
     val price:String,
     val type:String,
     val listWarna:List<Warna>,
-    val listUkuran:List<Ukuran>
+    val listUkuran:List<Ukuran>,
+    val description:String
 )
 
 data class Warna(val warna : String)

@@ -56,6 +56,7 @@ fun DetailContent(
     image:String,
     type:String,
     price:String,
+    description:String,
     listUkuran:List<Ukuran>,
     listWarna:List<Warna>,
     showSnackbar:(String)->Unit
@@ -149,22 +150,21 @@ fun DetailContent(
                 }
             }
             Text(
-                text = "Deskripsi Produk",
+                text = "Product Description",
                 style = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             )
             Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in  voluptate velit esse cillum dolore eu fugiat nulla pariatur." +
-                        " Excepteur sint  occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                text = description,
                 style = TextStyle(
                     fontSize = 10.sp,
                     textAlign = TextAlign.Justify
                 )
             )
             Text(
-                text = "Informasi",
+                text = "Information",
                 style = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
@@ -172,13 +172,13 @@ fun DetailContent(
             )
             Row {
                 Text(
-                    text = "Ongkir Reguler 8 rb - 14 rb", style = TextStyle(
+                    text = "Regular Delivery Fee IDR 8K - 14K", style = TextStyle(
                         fontSize = 10.sp,
                     )
                 )
             }
             Text(
-                text = "Estimasi tiba 3 hari",
+                text = "Estimated arrival 3 days",
                 style = TextStyle(
                     fontSize = 10.sp,
                 )
@@ -219,6 +219,8 @@ fun DetailContent(
             onClick = {
                 if(selectedUkuran?.ukuran != null && selectedWarna?.warna !=null){
                     navigateToPayment(id,selectedUkuran?.ukuran.toString(),selectedWarna?.warna.toString())
+                }else{
+                    showSnackbar("Required choose Size and Colour")
                 }
                          },
             modifier = Modifier.width(300.dp)
