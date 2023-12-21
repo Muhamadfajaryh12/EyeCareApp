@@ -79,7 +79,7 @@
 EyeCare App is an Android application that provides glasses purchasing services and can identify eye health based on questionnaire results using machine learning
 
 ## Result
-[Machine Learning : Model Colour Blind](https://colab.research.google.com/drive/1CDE6-HnpqeL7t_IOiX93gHOM4dItnKQK?usp=sharing)
-[Machine Learning : Model Miopi](https://colab.research.google.com/drive/1tsIWH9zDHGPHjc6OcDXIj5cyRCwkiS9x?usp=sharing)
-[Mobile Development](https://drive.google.com/drive/folders/1Rhwi1oxIDNFEJMB3fJrl0-5MlQFBESsW?usp=sharing)
-[Cloud Computing](https://eyecare-408207.et.r.appspot.com)
+- [Machine Learning : Model Colour Blind](https://colab.research.google.com/drive/1CDE6-HnpqeL7t_IOiX93gHOM4dItnKQK?usp=sharing)
+- [Machine Learning : Model Miopi](https://colab.research.google.com/drive/1tsIWH9zDHGPHjc6OcDXIj5cyRCwkiS9x?usp=sharing)
+- [Mobile Development](https://drive.google.com/drive/folders/1Rhwi1oxIDNFEJMB3fJrl0-5MlQFBESsW?usp=sharing)
+- [Cloud Computing](https://eyecare-408207.et.r.appspot.com)
