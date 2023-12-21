@@ -75,6 +75,6 @@
 
 **Machine Learning:** Python, TensorFlow
 
-
-
+## About Project
+EyeCare App is an Android application that provides glasses purchasing services and can identify eye health based on questionnaire results using machine learning
 
