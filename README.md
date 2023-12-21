@@ -14,13 +14,30 @@
     <th>Learning Path</th>
     <th>University</th>
   </theader>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Muhamad Fajar Yudhistira Herjanto</td>
+      <td>A314BSY2532</td>
+      <td>Mobile Development</td>
+      <td>Universitas Singaperbangsa Karawang</td>
+    </tr>
+      <tr>
+      <td>2</td>
+      <td>Hilmy Syafiq Arrosyid</td>
+      <td>A007BSY2402</td>
+      <td>Mobile Development</td>
+      <td>Universitas Dian Nuswantoro</td>
+    </tr>
+      <tr>
+      <td>1</td>
+      <td>Muhamad Fajar Yudhistira Herjanto</td>
+      <td>A314BSY2532</td>
+      <td>Mobile Development</td>
+      <td>Universitas Singaperbangsa Karawang</td>
+    </tr>
+  </tbody>
 </table>
-- Muhamad Fajar Yudhistira Herjanto (A314BSY2532) MD
-- Hilmy Syafiq Arrosyid (A007BSY2402) MD
-- Wahyu Pinanda Ginting (C269BSY4350) CC
-- Gregoria Mariana Selvi (C240BSX3146) CC
-- Muhammad Fiqri Faturrian (M314BSY0984) ML
-- Muhammad Fajar Dwi Setyoko (M196BSY0701) ML
-- Bethari Ayudya Irianti (M196BSX0831) ML
+
 
 
