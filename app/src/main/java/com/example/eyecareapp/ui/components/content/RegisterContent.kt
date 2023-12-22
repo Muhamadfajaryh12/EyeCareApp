@@ -64,7 +64,7 @@ fun RegisterContent (
     ){
         Box(modifier = Modifier
             .fillMaxWidth()
-            .height(135.dp)
+            .height(150.dp)
         ){
             Image(
                 painter = painterResource(id = R.drawable.vector),

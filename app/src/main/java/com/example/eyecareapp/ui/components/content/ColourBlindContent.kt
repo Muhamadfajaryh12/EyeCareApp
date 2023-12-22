@@ -62,7 +62,8 @@ fun ColourBlindContent(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
                 horizontalArrangement = Arrangement.Start,
@@ -94,6 +95,8 @@ fun ColourBlindContent(
                     .fillMaxWidth()
                     .background(Color.White)
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
